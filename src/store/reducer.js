@@ -3,6 +3,7 @@ import camelCase from 'lodash/camelCase'
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 import { reducer as thunk } from 'redux-saga-thunk'
+import { connectRouter } from 'connected-react-router'
 
 const reducers = {
   form,
@@ -16,4 +17,9 @@ req.keys().forEach((key) => {
   reducers[storeName] = req(key).default
 })
 
-export default combineReducers(reducers)
+const createRootReducer = (history) => combineReducers({
+  router: connectRouter(history),
+  ...reducers
+})
+
+export default createRootReducer

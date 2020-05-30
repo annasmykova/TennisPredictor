@@ -1,0 +1,30 @@
+@import "../../../assets/styles/variables";
+
+.custom-tab {
+  max-width: 1472px;
+  width: 100% !important;
+  background-color: transparent;
+
+  &__buttons-wrapper.MuiAppBar-root {
+    background-color: transparent;
+    box-shadow: none;
+    border-bottom: 1px solid $border-color;
+
+    .MuiTabs-scrollable {
+      .MuiTabs-indicator {
+        background-color: $default-color;
+      }
+
+      .MuiTabs-flexContainer {
+
+        .MuiTab-root {
+          color: $grey-text;
+        }
+        .Mui-selected {
+          font-weight: 600;
+          color: $text-color;
+        }
+      }
+    }
+  }
+}

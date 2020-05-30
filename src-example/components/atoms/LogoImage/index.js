@@ -11,7 +11,7 @@ const Wrapper = styled.span`
 `
 
 const LogoImage = (props) => {
-  const logo = 'logo'
+  const logo = 'common'
   const svg = require(`!raw-loader!./${logo}.svg`)
   return <Wrapper {...props} dangerouslySetInnerHTML={{ __html: svg.default }} />
 }

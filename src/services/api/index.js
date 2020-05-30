@@ -1,4 +1,3 @@
-// https://github.com/diegohaz/arc/wiki/API-service
 import { stringify } from 'query-string'
 import merge from 'lodash/merge'
 import { apiUrl } from 'config'

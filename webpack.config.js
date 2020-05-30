@@ -10,7 +10,7 @@ const isArray = require('lodash/isArray')
 
 
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 const sourceDir = process.env.SOURCE || 'src'
 const publicPath = `/${process.env.PUBLIC_PATH || ''}/`.replace('//', '/')
 const sourcePath = path.join(process.cwd(), sourceDir)
@@ -30,6 +30,17 @@ const wpConfig = {
         { test: /\.jsx?$/, exclude: /node_modules/, use: 'happypack/loader' },
         { test: /\.(png|jpe?g|svg|woff2?|ttf|eot)$/, loader: 'url-loader?limit=8000' },
         { test: /\.svg$/i, use: 'raw-loader' },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            // Creates `style` nodes from JS strings
+            'style-loader',
+            // Translates CSS into CommonJS
+            'css-loader',
+            // Compiles Sass to CSS
+            'sass-loader',
+          ],
+        },
       ],
     },
     plugins: [

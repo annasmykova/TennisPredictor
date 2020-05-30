@@ -1,9 +1,15 @@
-// https://github.com/diegohaz/arc/wiki/Atomic-Design
-import React from 'react'
+import React, { useState } from 'react';
+import { Page, CustomTabs } from 'components';
+import './index.scss';
 
-const HomePage = () => {
+const HomePage = props => {
+
   return (
-    <div>Hello World</div>
+    <Page heading="Ratings">
+      <div className="home-page">
+        <CustomTabs {...props} />
+      </div>
+    </Page>
   )
 }
 

@@ -1,14 +1,17 @@
-// https://github.com/diegohaz/arc/wiki/Redux-modules
+import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, compose } from 'redux'
+import { routerMiddleware } from 'connected-react-router'
+import createRootReducer from './reducer'
 import createSagaMiddleware from 'redux-saga'
 import { isDev, isBrowser } from 'config'
 import middlewares from './middlewares'
-import reducer from './reducer'
 import sagas from './sagas'
 
 const devtools = isDev && isBrowser && window.devToolsExtension
   ? window.devToolsExtension
   : () => (fn) => fn
+
+export const history = createBrowserHistory()
 
 const configureStore = (initialState, services = {}) => {
   const sagaMiddleware = createSagaMiddleware()
@@ -16,12 +19,13 @@ const configureStore = (initialState, services = {}) => {
   const enhancers = [
     applyMiddleware(
       ...middlewares,
+      routerMiddleware(history),
       sagaMiddleware
     ),
     devtools(),
   ]
 
-  const store = createStore(reducer, initialState, compose(...enhancers))
+  const store = createStore(createRootReducer(history), initialState, compose(...enhancers))
   let sagaTask = sagaMiddleware.run(sagas, services)
 
   if (module.hot) {

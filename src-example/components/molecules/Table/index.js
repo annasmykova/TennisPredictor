@@ -21,8 +21,8 @@ const Table = ({
     <StyledTable {...props}>
       {caption && <Caption reverse={reverse}>{caption}</Caption>}
       {head && <thead>{head}</thead>}
-      {foot && <tfoot>{foot}</tfoot>}
       <tbody>{children}</tbody>
+      {foot && <tfoot>{foot}</tfoot>}
     </StyledTable>
   )
 }

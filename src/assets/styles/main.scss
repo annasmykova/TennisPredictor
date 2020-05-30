@@ -1,0 +1,94 @@
+@import './variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  font-family: 'Open Sans', sans-serif;
+  color: $text-color;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+#app {
+  position: relative;
+  min-height: 100vh;
+  background: url('../images/common/tennis-predictor-bg.jpg') no-repeat calc(100% + 30px) calc(100% + 10px);
+  background-size: 46vw 36vw;
+
+  & > div {
+    padding: $header-height 0 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 0;
+    width: 855px;
+    height: 748px;
+  }
+}

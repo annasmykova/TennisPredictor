@@ -1,0 +1,31 @@
+@import "../../../assets/styles/variables";
+
+.search-field {
+  height: $header-height;
+  background-color: $border-color;
+  margin-right: 36px;
+
+  .MuiInputBase-root {
+    display: flex;
+    height: 100%;
+
+    .MuiInputBase-input {
+      padding: 10px 60px 10px 20px;
+      font-family: 'Open Sans Light', sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 27px;
+      color: $text-color;
+    }
+  }
+  .search-field__icon {
+    height: 100%;
+    width: 48px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    color: $default-color;
+    border: 1px solid $border-color;
+  }
+}
