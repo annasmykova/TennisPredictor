@@ -16,8 +16,8 @@ const RatingCard = ({ data, handleRowClick, handlePageChange }) => {
       title: 'Name',
       align: 'left'
     },
-    sex: {
-      title: 'Sex',
+    gender: {
+      title: 'Gender',
       align: 'right'
     },
     age: {
@@ -37,8 +37,6 @@ const RatingCard = ({ data, handleRowClick, handlePageChange }) => {
   const tableData = data.data[data.page - 1]? getRatingTableData(data.data[data.page - 1]) : []
 
   const pageCount = Math.ceil(data.total/data.size)
-
-  console.log(tableData);
 
   return (
     <div className="rating-card">

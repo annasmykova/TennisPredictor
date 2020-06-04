@@ -15,9 +15,7 @@ const store = configureStore({}, { api: api.create() })
 
 const renderApp = () => (
   <Provider store={store}>
-    <BrowserRouter basename={basename}>
-      <App />
-    </BrowserRouter>
+    <App />
   </Provider>
 )
 

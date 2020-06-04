@@ -1,0 +1,75 @@
+@import "../../../assets/styles/variables";
+
+.login-form {
+  margin-bottom: 200px;
+
+  .MuiFormControl-root.autocomplete-field {
+    position: relative;
+  }
+
+  .MuiTextField-root.autocomplete-field {
+    margin-bottom: 0;
+
+    & + .search-list {
+      position: absolute;
+      z-index: 2;
+      background: #fff;
+      width: 100%;
+      top: 100%;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      .MuiList-root {
+        .MuiListItem-root {
+          padding: 0;
+
+          span {
+            padding: 10px 20px;
+            display: flex;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+  .MuiFormControl-root,
+  .MuiTextField-root {
+    margin-bottom: 40px;
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-color: $text-color;
+    }
+    .MuiFormLabel-root.Mui-error {
+      color: $red;
+    }
+    .MuiInputLabel-root {
+      color: $text-color;
+    }
+    .MuiInput-underline.Mui-error:after {
+      border-color: $red;
+    }
+    .MuiInput-underline:after {
+      border-color: $default-color;
+    }
+  }
+
+  .default-btn {
+    align-self: flex-end;
+    min-width: 200px;
+    margin-top: 40px;
+  }
+
+  .have-no-acc {
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    margin-top: 70px;
+    color: $grey-text;
+
+    .MuiButton-root {
+      border: none;
+      border-bottom: 1px solid $default-color;
+      margin-left: 15px;
+    }
+  }
+}

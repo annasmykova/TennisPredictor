@@ -6,8 +6,19 @@ export const getRatingTableData = data => {
   return data.map(row => ({
     ...row,
     photo: <Avatar photo={row.photo} />,
-    sex: SexEnum[row.sex],
+    gender: SexEnum[row.gender],
     hand: HandEnum[row.hand],
-    country: countryList[row.country].name
+    country: countryList[row.country].name,
+    name: `${row.firstName} ${row.lastName}`
   }))
+}
+
+export const getCountrySelectValues = data => {
+  // console.log(data);
+  const res = Object.keys(data).reduce((acc, key) => ({
+    ...acc,
+    [key]: data[key].name
+  }), {})
+  console.log(JSON.stringify(res));
+  return res
 }

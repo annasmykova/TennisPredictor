@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Header = () => {
+const Header = ({ user }) => {
     const classes = useStyles();
 
     return (
@@ -21,7 +21,7 @@ const Header = () => {
         <Toolbar>
           <Logo />
           <SearchField/>
-          <LoginButton />
+          <LoginButton user={user} />
         </Toolbar>
       </AppBar>
     )

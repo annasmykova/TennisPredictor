@@ -1,0 +1,41 @@
+@import "../../../assets/styles/variables";
+
+.sign-up-modal {
+  #customized-dialog-title {
+    h6 {
+      font-family: 'Open Sans Semibold', sans-serif;
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: 600;
+      color: $big-title-color;
+    }
+
+  }
+  .content-wrapper {
+    width: 500px;
+    display: flex;
+    align-items: stretch;
+    height: 200px;
+
+    .sign-up-link {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      cursor: pointer;
+      color: $grey-text;
+      font-size: 26px;
+      line-height: 30px;
+      font-family: 'Open Sans', sans-serif;
+
+      p {
+        margin-top: 20px;
+      }
+
+      &:hover {
+        color: $default-color;
+      }
+    }
+  }
+}

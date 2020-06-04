@@ -1,36 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switch, Route, Redirect } from 'react-router'
-import { Provider, ReactReduxContext } from 'react-redux'
-import configureStore, { history } from '../store/configure'
+import { connect, ReactReduxContext } from 'react-redux'
+import { history } from '../store/configure'
+import { ToastContainer } from 'react-toastify';
 import { ConnectedRouter } from 'connected-react-router'
+import { fromAuth } from 'store/selectors'
+import { getUser } from 'store/actions'
+import jwt_decode from 'jwt-decode'
+import cookie from 'react-cookie'
+
 import '../assets/styles/main.scss'
 
-import { HomePage, Header, SideBar, Avatar, LoginPage } from 'components'
-import { HomePageContainer } from 'containers';
+import { HomePage, Header, SideBar, LoginPage, SignUpPage, SettingsPage } from 'components'
+import { HomePageContainer, CoachPageContainer } from 'containers';
 
-const store = configureStore()
+const App = ({ user, getUser }) => {
+  console.log(user);
+  const userToken = cookie.load('token')
+  useEffect(() => {
+    if (userToken && !user) {
+      getUser(jwt_decode(userToken).id);
+    }
+  }, [user])
 
-const App = () => {
   return (
-    <div>
-      <Provider store={store} context={ReactReduxContext}>
-        <ConnectedRouter history={history}  context={ReactReduxContext}>
-          <>
-            <Header/>
-            <SideBar />
-            <Switch>
-              <Route path="/" render={() => <HomePageContainer />} exact />
-              <Route path="/login" render={() => <LoginPage />} exact />
-              <Route path="/coach/:id/players" render={() => <HomePage/>} exact />
-              <Route path="/coach/:id" render={() => <Avatar/>} exact />
-              <Route path="/settings" render={() => <Avatar/>} exact />
-              <Redirect to="/"/>
-            </Switch>
-          </>
-        </ConnectedRouter>
-      </Provider>
-    </div>
+    <ConnectedRouter history={history}  context={ReactReduxContext}>
+      <>
+        <Header user={user}/>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {
+          user && <SideBar />
+        }
+        <Switch>
+          <Route path="/" render={() => <HomePageContainer />} exact />
+          <Route path="/login" render={() => {
+            if (userToken) {
+              return <Redirect to="/" />
+            }
+            return <LoginPage />
+          }} exact />
+          <Route path="/sign-up/:userType" render={() => {
+            if (userToken) {
+              return <Redirect to="/" />
+            }
+            return <SignUpPage />
+          }} exact />
+          <Route path="/coach/:id/players" render={() => <HomePage/>} exact />
+          <Route path="/coach/:coachId" render={() => <CoachPageContainer />} exact />
+          <Route path="/settings" render={() => {
+            if (!userToken) {
+              return <Redirect to="/"/>
+            }
+            return <SettingsPage/>
+          }} />
+          <Redirect to="/"/>
+        </Switch>
+      </>
+    </ConnectedRouter>
   )
 }
 
-export default App
+export default connect(state => ({ user: fromAuth.getUser(state) }), { getUser })(App)

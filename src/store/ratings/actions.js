@@ -12,3 +12,11 @@ export const getRating = (params= {}) => ({
   },
 })
 
+export const getRatingSuccess = (filter, data) => ({
+  type: GET_RATING_SUCCESS,
+  payload: {
+    ...data,
+    filter,
+  },
+})
+

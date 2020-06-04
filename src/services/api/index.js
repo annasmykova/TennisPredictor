@@ -1,6 +1,7 @@
 import { stringify } from 'query-string'
 import merge from 'lodash/merge'
 import { apiUrl } from 'config'
+import cookie from 'react-cookie'
 
 export const checkStatus = (response) => {
   if (response.ok) {
@@ -18,11 +19,22 @@ export const parseSettings = ({
 } = {}) => {
   const headers = {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
+    'Content-Type': otherSettings['Content-Type'] || 'application/json',
     'Accept-Language': locale,
   }
+  if (otherSettings['Content-Type']) {
+
+    console.log(data);
+    for (const value of data.values()) {
+      console.log('formData', value);
+    }
+  }
   const settings = merge({
-    body: data ? JSON.stringify(data) : undefined,
+    body: data
+          ? otherSettings['Content-Type']
+            ? data
+            : JSON.stringify(data)
+          : undefined,
     method,
     headers,
   }, otherSettings)
@@ -41,10 +53,10 @@ api.request = (endpoint, { params, ...settings } = {}) => fetch(parseEndpoint(en
   .then(checkStatus)
   .then(parseJSON);
 ['delete', 'get'].forEach((method) => {
-  api[method] = (endpoint, settings) => api.request(endpoint, { method, ...settings })
+  api[method] = (endpoint, settings) => api.create().request(endpoint, { method, ...settings })
 });
 ['post', 'put', 'patch'].forEach((method) => {
-  api[method] = (endpoint, data, settings) => api.request(endpoint, { method, data, ...settings })
+  api[method] = (endpoint, data, settings) => api.create().request(endpoint, { method, data, ...settings })
 })
 
 api.create = (settings = {}) => ({
@@ -65,6 +77,9 @@ api.create = (settings = {}) => ({
   },
 
   request(endpoint, settings) {
+    if (cookie.load('token')) {
+      this.setToken(cookie.load('token'))
+    }
     return api.request(endpoint, merge({}, this.settings, settings))
   },
 

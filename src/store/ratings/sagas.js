@@ -1,7 +1,7 @@
 import {
   take, put, call, takeEvery,
 } from 'redux-saga/effects'
-import { GET_RATING } from './actions';
+import { GET_RATING, getRatingDataSuccess } from './actions';
 import api from '../../services/api';
 
 
@@ -12,6 +12,7 @@ export function* getRatingSaga({ payload }) {
         ...payload
       }
     }))
+    yield put(getRatingDataSuccess(payload.filter, data))
     console.log(data);
   } catch (e) {
     console.log(e);
