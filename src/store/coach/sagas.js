@@ -52,10 +52,8 @@ export function* getRequestsSaga({ payload }) {
 
 export function* resolveRequestSaga({ payload }) {
   try {
-    const data = yield call(api.get(`/coach/${payload.coachId}/requests/${payload.requestId}`, {
-      params: {
-        ...payload.params
-      }
+    const data = yield call(api.post(`/coach/${payload.coachId}/requests/${payload.requestId}`, {
+      ...payload.data
     }))
     yield put(resolveRequestSuccess(payload.requestId))
     console.log(data);

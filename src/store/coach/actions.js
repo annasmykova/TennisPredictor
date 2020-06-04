@@ -52,7 +52,7 @@ export const resolveRequest = (coachId, requestId, result) => ({
   payload: {
     coachId,
     requestId,
-    params: {
+    data: {
       result,
     }
   },
