@@ -23,7 +23,7 @@ const RemoveAccount = ({ user, removeAcc  }) => {
   return (<p className="remove-acc">
     Are you sure that you want to remove your account?
     <Button
-      className={classNames('error-btn')}
+      className={classNames('default-btn error-btn red')}
       onClick={handleRemoveAcc}
       color="secondary"
       variant="outlined"
