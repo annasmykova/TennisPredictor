@@ -1,3 +1,5 @@
+@import "../../../assets/styles/variables";
+
 .avatar {
   width: 32px;
   height: 32px;
@@ -5,4 +7,5 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  background-color: #fff;
 }

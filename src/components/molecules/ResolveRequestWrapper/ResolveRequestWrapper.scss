@@ -1,0 +1,14 @@
+.resolve-request-wrapper {
+  display: flex;
+  margin-left: auto;
+  width: 150px;
+
+  .default-btn {
+    min-width: 70px;
+    margin-left: auto;
+
+    & + .default-btn {
+      margin-left: 10px;
+    }
+  }
+}

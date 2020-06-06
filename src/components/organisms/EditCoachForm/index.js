@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { Avatar } from 'components'
+import { ReduxField } from 'components'
 import { CountrySelectList, SexEnum } from '../../../utils/constants/constants';
+import { Field } from 'redux-form';
+import Button from '@material-ui/core/Button';
+import classNames from 'classnames';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,11 +19,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CoachBioDefault = props => {
-  const { coach } = props
+const EditCoachForm = props => {
+  const { handleSubmit, loading, closeForm } = props
   const classes = useStyles();
 
+  const [isInitial, setInitial] = useState(true);
+  useEffect(() => {
+    if (!loading) {
+      if (isInitial) {
+        setInitial(false)
+      } else {
+        closeForm()
+      }
+    }
+  }, [loading])
+
   return (
+    <form className="profile-form" onSubmit={handleSubmit}>
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <Grid container spacing={0}>
@@ -28,23 +43,17 @@ const CoachBioDefault = props => {
             <div className="bio-container-wrapper">
               <Grid container className="grid-row" spacing={3}>
                 <Grid item xs>
-                  <Avatar photo={coach.photo}/>
+                  <Field name="photo" label="Photo" type="file" component={ReduxField}/>
                 </Grid>
               </Grid>
               <Grid container className="grid-row" spacing={3}>
                 <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">First Name</span>
-                    <span className="value">{coach.firstName}</span>
-                  </p>
+                  <Field name="firstName" label="First Name" type="text" component={ReduxField}/>
                 </Grid>
               </Grid>
               <Grid container className="grid-row" spacing={3}>
                 <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">Last Name</span>
-                    <span className="value">{coach.lastName}</span>
-                  </p>
+                  <Field name="lastName" label="Last Name" type="text" component={ReduxField}/>
                 </Grid>
               </Grid>
             </div>
@@ -53,30 +62,26 @@ const CoachBioDefault = props => {
             <div className="bio-container-wrapper">
               <Grid container className="grid-row" spacing={3}>
                 <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">Gender</span>
-                    <span className="value">{SexEnum[coach.gender]}</span>
-                  </p>
+                  <Field name="gender" label="Gender" type="select" component={ReduxField} values={SexEnum}/>
                 </Grid>
                 <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">Date of Birth</span>
-                    <span className="value">{new Date(coach.dob).toLocaleDateString()}</span>
-                  </p>
+                  <Field name="country" label="Country" type="select" component={ReduxField}
+                         values={CountrySelectList}
+                  />
+                </Grid>
+              </Grid>
+              <Grid container className="grid-row" spacing={3}>
+                <Grid item xs={6}>
+                  <Field name="dob" label="Date of Birth" type="date" component={ReduxField}/>
                 </Grid>
               </Grid>
               <Grid container className="grid-row" spacing={3}>
                 <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">Country</span>
-                    <span className="value">{CountrySelectList[coach.country]}</span>
-                  </p>
-                </Grid>
-                <Grid item xs>
-                  <p className="valueText">
-                    <span className="label">Coaching</span>
-                    <span className="value">{coach.players} {coach.players === 1 ? 'Player' : 'Players' }</span>
-                  </p>
+                  <Button
+                    className={classNames('default-btn')}
+                    variant="outlined"
+                    type="submit"
+                  >Save Changes</Button>
                 </Grid>
               </Grid>
             </div>
@@ -84,7 +89,8 @@ const CoachBioDefault = props => {
         </Grid>
       </Paper>
     </div>
+    </form>
   );
 }
 
-export default CoachBioDefault
+export default EditCoachForm

@@ -1,0 +1,45 @@
+@import "../../../assets/styles/variables";
+
+.custom-table {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 20;
+
+  .MuiTableHead-root {
+    .MuiTableRow-head {
+      .MuiTableCell-head {
+        color: #fff;
+        font-weight: 400;
+        font-family: 'Open Sans Semibold', sans-serif;
+        font-size: 18px;
+        line-height: 24px;
+        &:first-child {
+          max-width: 50px;
+        }
+      }
+    }
+  }
+
+  .MuiTableBody-root {
+    .MuiTableRow-root {
+      .MuiTableCell-body {
+        color: $text-color;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        line-height: 20px;
+      }
+
+      &.with-hover {
+        transition: all .2s ease-in-out;
+        &:hover {
+          cursor: pointer;
+          background: $grey-hover;
+
+          .MuiTableCell-body {
+            //font-family: 'Open Sans Semibold', sans-serif;
+          }
+        }
+      }
+    }
+  }
+}

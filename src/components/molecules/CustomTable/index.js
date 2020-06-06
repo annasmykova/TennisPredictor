@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import './CustomTable.scss'
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -18,26 +19,18 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    // '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    // },
-  },
-}))(TableRow);
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
 });
 
-export default function CustomizedTables({ headArray, data, handleRowClick }) {
+export default function CustomizedTables({ headArray, data, handleRowClick, buttonRender }) {
   const classes = useStyles();
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
+      <Table className={`${classes.table} custom-table`} aria-label="customized table">
         <TableHead>
           <TableRow>
             {
@@ -49,15 +42,19 @@ export default function CustomizedTables({ headArray, data, handleRowClick }) {
         </TableHead>
         <TableBody>
           {data.map((row) => (
-            <StyledTableRow  key={row.id} onClick={() => {
+            <TableRow className={`${handleRowClick && 'with-hover'}`}  key={row.id} onClick={() => {
               handleRowClick && handleRowClick(row)
             }}>
               {
                 Object.keys(headArray).map((item, idx) =>
-                  (<StyledTableCell key={idx} align={headArray[item].align}>{row[item]}</StyledTableCell>)
+                  (<StyledTableCell key={idx} align={headArray[item].align}>{
+                    item === 'button'
+                      ? buttonRender(row)
+                      : row[item]
+                  }</StyledTableCell>)
                 )
               }
-            </StyledTableRow>
+            </TableRow>
           ))}
         </TableBody>
       </Table>

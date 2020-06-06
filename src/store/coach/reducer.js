@@ -11,7 +11,7 @@ export default (state = initialState, { type, payload }) => {
     case GET_COACH_SUCCESS:
       return {
         ...state,
-        data: payload.coachData
+        coach: payload
       }
     case GET_REQUESTS_SUCCESS:
       return {

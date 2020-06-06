@@ -123,3 +123,123 @@ select {
     line-height: 28px;
   }
 }
+
+.bio {
+  display: flex;
+  margin: 50px 0;
+  padding: 0 24px 0 0;
+  justify-content: space-between;
+
+  &__wrapper {
+    width: 100%;
+    max-width: 900px;
+
+    .MuiPaper-root {
+      padding: 0;
+      box-shadow: none;
+      border: none;
+
+      &>.MuiGrid-container {
+        height: 100%;
+        border: 1px solid $border-color;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        overflow: hidden;
+
+
+      }
+
+      .MuiGrid-item {
+        .bio-container-wrapper {
+          border: 1px solid $border-color;
+          height: 100%;
+          padding: 24px;
+
+          .grid-row {
+            margin: 0;
+            min-height: 70px;
+            width: 100%;
+
+            .MuiGrid-item {
+              min-height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+
+              .avatar {
+                width: 110px;
+                height: 110px;
+              }
+              .valueText {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+
+                .label {
+                  display: flex;
+                  font-size: 14px;
+                  line-height: 16px;
+                  margin-bottom: 5px;
+                }
+                .value {
+                  font-size: 24px;
+                  line-height: 28px;
+                  //color: $default-color;
+                  color: $text-color;
+                  text-align: left;
+                }
+              }
+
+            }
+
+          }
+        }
+      }
+    }
+  }
+
+  .toggle-bio-btn {
+    min-width: 100px;
+    margin-left: 80px;
+  }
+}
+
+.profile-form {
+
+  .MuiFormControl-root,
+  .MuiTextField-root {
+    width: 100%;
+    text-align: left;
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-color: $text-color;
+    }
+    .MuiFormLabel-root.Mui-error {
+      color: $red;
+    }
+    .MuiInputLabel-root {
+      color: $text-color;
+    }
+    .MuiInput-underline.Mui-error:after {
+      border-color: $red;
+    }
+    .MuiInput-underline:after {
+      border-color: $default-color;
+    }
+
+    .default-btn {
+      margin-bottom: 10px;
+    }
+  }
+
+  .default-btn {
+    margin-left: auto;
+  }
+}
+
+.rating-card {
+  margin: 50px 0;
+}

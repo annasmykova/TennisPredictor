@@ -2,8 +2,9 @@ import {
   take, put, call, takeEvery,
 } from 'redux-saga/effects'
 import {
-  GET_COACH, GET_PLAYERS,
-  GET_RATING, GET_REQUESTS,
+  GET_COACH,
+  GET_PLAYERS,
+  GET_REQUESTS,
   getCoachSuccess,
   getPlayersSuccess,
   getRequestsSuccess, RESOLVE_REQUEST,
@@ -14,7 +15,33 @@ import api from '../../services/api';
 
 export function* getCoachSaga({ payload }) {
   try {
-    const data = yield call(api.get(`/coach/${payload}`))
+    let data;
+    // const data = yield call(api.get(`/coach/${payload}`))
+    if (payload === 2 ) {
+      data = {
+        id: 2,
+        firstName: 'Daniel',
+        lastName: 'Pilipets',
+        userType: 0,
+        photo: null,
+        country: 'UA',
+        gender: 0,
+        dob: new Date(),
+        players: 3
+      }
+    } else {
+      data = {
+        id: 4,
+        firstName: 'Sergey',
+        lastName: 'Sergey',
+        userType: 0,
+        photo: null,
+        country: 'UA',
+        gender: 0,
+        dob: new Date(),
+        players: 3
+      }
+    }
     yield put(getCoachSuccess(data))
     console.log(data);
   } catch (e) {

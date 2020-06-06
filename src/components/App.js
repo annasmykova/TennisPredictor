@@ -11,7 +11,7 @@ import cookie from 'react-cookie'
 
 import '../assets/styles/main.scss'
 
-import { HomePage, Header, SideBar, LoginPage, SignUpPage, SettingsPage } from 'components'
+import { HomePage, Header, SideBar, LoginPage, SignUpPage, SettingsPage, MyPlayersPage } from 'components'
 import { HomePageContainer, CoachPageContainer } from 'containers';
 
 const App = ({ user, getUser }) => {
@@ -39,7 +39,7 @@ const App = ({ user, getUser }) => {
           pauseOnHover
         />
         {
-          user && <SideBar />
+          user && <SideBar user={user} />
         }
         <Switch>
           <Route path="/" render={() => <HomePageContainer />} exact />
@@ -55,7 +55,12 @@ const App = ({ user, getUser }) => {
             }
             return <SignUpPage />
           }} exact />
-          <Route path="/coach/:id/players" render={() => <HomePage/>} exact />
+          <Route path="/coach/:coachId/players" render={() => {
+            if (!userToken) {
+              return <Redirect to="/"/>
+            }
+            return <MyPlayersPage/>
+          }} exact />
           <Route path="/coach/:coachId" render={() => <CoachPageContainer />} exact />
           <Route path="/settings" render={() => {
             if (!userToken) {

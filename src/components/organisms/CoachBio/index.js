@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import Button from '@material-ui/core/Button';
-import { CoachFormContainer } from 'containers';
+import { EditCoachFormContainer } from 'containers';
 import { CoachBioDefault } from 'components';
 import classNames from 'classnames';
 
@@ -11,28 +11,22 @@ const CoachBio = props => {
   const [currentCoach, setCoach] = useState(null)
 
   useEffect(() => {
-    if (!currentCoach) {
-      if (user && +user.id === +match.params.coachId) {
-        setCoach(user)
-      } else if (!coach) {
-        getCoach(+match.params.coachId)
-      } else if (coach) {
-        setCoach(coach)
-      }
+    if (user && +user.id === +match.params.coachId) {
+      setCoach(user)
+    } else if (!coach) {
+      getCoach(+match.params.coachId)
+    } else if (coach) {
+      setCoach(coach)
     }
+  }, [user, coach, match])
 
-  }, [user, coach])
-
-  return (<div className="coach-bio">
+  return (<div className="coach-bio bio">
     {
       currentCoach &&
-      <div className="coach-bio__wrapper">
+      <div className="coach-bio__wrapper bio__wrapper">
         {
           isForm
-          ? <CoachFormContainer
-            handleAfterSubmit={() => setForm(false)}
-            isSignUp={false}
-          />
+          ? <EditCoachFormContainer closeForm={() => setForm(false)} />
           : <CoachBioDefault coach={currentCoach}/>
         }
       </div>
@@ -40,7 +34,7 @@ const CoachBio = props => {
     {
       user && +user.id === +match.params.coachId &&
       <Button
-        className={classNames('default-btn')}
+        className={classNames('default-btn toggle-bio-btn', {red: isForm})}
         variant="outlined"
         type="submit"
         onClick={() => setForm(!isForm)}

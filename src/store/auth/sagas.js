@@ -13,7 +13,7 @@ import {
   signUpSuccess,
   removeAccSuccess,
   getUserSuccess,
-  logoutSuccess
+  logoutSuccess, EDIT_USER, editUserSuccess, editUserFail
 } from './actions';
 import { fromAuth } from 'store/selectors'
 import { push } from 'connected-react-router'
@@ -41,7 +41,10 @@ export function* loginSaga({ payload }) {
       token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
       userData: {
         id: 123,
-        name: 'Anna Smykova',
+        firstName: 'Anna',
+        lastName: 'Smykova',
+        userType: 0,
+        photo: null,
       }
     }
     yield put(loginSuccess(data.userData))
@@ -101,7 +104,12 @@ export function* getUserSaga({ payload }) {
         id: 123,
         firstName: 'Anna',
         lastName: 'Smykova',
-        userType: 0
+        userType: 0,
+        photo: null,
+        country: 'UA',
+        gender: 0,
+        dob: new Date(),
+        players: 3
       }
     }
     yield put(getUserSuccess(data.userData))
@@ -112,6 +120,19 @@ export function* getUserSaga({ payload }) {
   }
 }
 
+export function* editUserSaga({ payload }) {
+  try {
+    const user = yield select(fromAuth.getUser)
+    const data = yield call(api.post(`/user/${user.id}`, payload, {'Content-Type': 'multipart/form-data'}))
+    yield put(editUserSuccess(data.userData))
+    cookie.save('token', data.token, { path: '/' })
+  } catch (e) {
+    yield put(editUserFail())
+    console.log(e);
+  }
+
+}
+
 export default function* () {
   yield takeEvery(LOGOUT, logoutSaga)
   yield takeEvery(LOGIN, loginSaga)
@@ -119,4 +140,5 @@ export default function* () {
   yield takeEvery(REMOVE_ACC, removeAccSaga)
   yield takeEvery(CHANGE_PASS, changePassSaga)
   yield takeEvery(GET_USER, getUserSaga)
+  yield takeEvery(EDIT_USER, editUserSaga)
 }

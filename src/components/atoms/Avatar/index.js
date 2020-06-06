@@ -1,5 +1,5 @@
 import React from 'react';
-import NoUser from '../../../assets/images/common/no-user.png';
+import NoUser from '../../../assets/images/common/no-user-avatar.png';
 import './Avatar.scss'
 
 const Avatar = ({ photo = null }) => {

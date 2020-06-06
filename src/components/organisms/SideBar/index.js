@@ -7,23 +7,27 @@ import { NavLink } from 'react-router-dom';
 import { Avatar } from 'components';
 import './SideBar.scss'
 
-const SideBar = ({ user = true, photo = null, userType = 0, userId = 1, coachId }) => {
+const SideBar = ({ user, photo = null, userType = 0, userId = 1, coachId }) => {
   return user && (
     <aside id="side-bar">
       <ul className="side-bar__list">
-        <li className="side-bar__list-item"><NavLink to={userType ? `/player/${userId}` : `/coach/${userId}` } exact>
-          <Avatar photo={photo} />
+        <li className="side-bar__list-item"><NavLink to={user.userType ? `/player/${user.id}` : `/coach/${user.id}` } exact>
+          <Avatar photo={user.photo} />
           <span>My Profile</span>
         </NavLink></li>
-        <li className="side-bar__list-item"><NavLink to={userType ? `/coach/${coachId}` : `/coach/${userId}/players` }>
+        <li className="side-bar__list-item"><NavLink to={
+          user.userType
+          ? `/coach/${user.coach.id}`
+          : `/coach/${user.id}/players`
+        }>
           {
-            userType
+            user.userType
               ? <Icon icon={whistleOutline} style={{fontSize: '30px'}} />
               : <Icon icon={tennisIcon} style={{fontSize: '30px'}} />
           }
           <span>
             {
-              userType
+              user.userType
               ? 'My Coach'
               : 'My Players'
             }

@@ -6,6 +6,7 @@ export const GET_PLAYERS = 'GET_PLAYERS'
 export const GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS'
 export const RESOLVE_REQUEST = 'RESOLVE_REQUEST'
 export const RESOLVE_REQUEST_SUCCESS = 'RESOLVE_REQUEST_SUCCESS'
+export const CLEAR_COACH_DATA = 'CLEAR_COACH_DATA'
 
 export const getCoach = (id) => ({
   type: GET_COACH,
@@ -14,7 +15,7 @@ export const getCoach = (id) => ({
 
 export const getCoachSuccess = (coachData) => ({
   type: GET_COACH_SUCCESS,
-  payload: {...coachData},
+  payload: coachData,
 })
 
 export const getPlayers = (coachId, params) => ({
@@ -56,6 +57,10 @@ export const resolveRequest = (coachId, requestId, result) => ({
       result,
     }
   },
+})
+
+export const clearCoachData = () => ({
+  type: CLEAR_COACH_DATA,
 })
 
 export const resolveRequestSuccess = (requestId) => ({

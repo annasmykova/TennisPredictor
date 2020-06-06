@@ -1,8 +1,10 @@
 import React from 'react'
-import { signUp } from 'store/actions'
+import { editUser } from 'store/actions'
+import { fromAuth } from 'store/selectors'
 import { reduxForm } from 'redux-form'
 
-import { CoachForm } from 'components'
+import { EditCoachForm } from 'components'
+import { connect } from 'react-redux';
 
 
 const validate = values => {
@@ -18,24 +20,10 @@ const validate = values => {
   } else if (!/^[A-Z]+$/i.test(values.lastName)) {
     errors.lastName = 'Last name must consist only letters'
   }
-  if (!values.gender) {
-    errors.gender = 'Required'
-  }
-  if (!values.country) {
-    errors.country = 'Required'
-  }
-  if (new Date() < values.dob) {
+  if (!values.dob) {
+    errors.dob = 'Required'
+  } else if (new Date() < values.dob) {
     errors.dob = 'Date of Birth can\'t be in future'
-  }
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 signs'
   }
   return errors
 }
@@ -53,7 +41,6 @@ const onSubmit = (data, dispatch) => {
   console.log(newData);
 
   const formData = new FormData()
-  formData.append('userType', '0');
 
   Object.keys(newData).forEach(key => {
     if (key === 'photo') {
@@ -67,16 +54,21 @@ const onSubmit = (data, dispatch) => {
   for (const value of formData.values()) {
     console.log('formData', value);
   }
-  dispatch(signUp(formData))
+  dispatch(editUser(formData))
 }
 
-let CoachFormContainer = props => {
-  return (<CoachForm {...props}/>)
+let EditCoachFormContainer = props => {
+  return (<EditCoachForm {...props}/>)
 }
 
-export default  reduxForm({
+EditCoachFormContainer = reduxForm({
   // a unique name for the form
   form: 'coachForm',
   validate,
   onSubmit
-})(CoachFormContainer)
+})(EditCoachFormContainer)
+
+export default connect(state => ({
+  initialValues: fromAuth.getCoachFormData(state),
+  loading: fromAuth.getLoading(state),
+}))(EditCoachFormContainer)
