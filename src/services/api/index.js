@@ -18,9 +18,12 @@ export const parseSettings = ({
   method = 'get', data, locale, ...otherSettings
 } = {}) => {
   const headers = {
-    Accept: 'application/json',
-    'Content-Type': otherSettings['Content-Type'] || 'application/json',
-    'Accept-Language': locale,
+    // Accept: 'application/json',
+    Origin: '*',
+    'access-control-allow-origin': '*'
+  }
+  if (!otherSettings['Content-Type']) {
+    headers['Content-Type'] = 'application/json'
   }
   if (otherSettings['Content-Type']) {
 

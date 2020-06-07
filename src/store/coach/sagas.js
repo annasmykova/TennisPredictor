@@ -24,7 +24,7 @@ export function* getCoachSaga({ payload }) {
         lastName: 'Pilipets',
         userType: 0,
         photo: null,
-        country: 'UA',
+        country: 'UKR',
         gender: 0,
         dob: new Date(),
         players: 3
@@ -36,7 +36,7 @@ export function* getCoachSaga({ payload }) {
         lastName: 'Sergey',
         userType: 0,
         photo: null,
-        country: 'UA',
+        country: 'UKR',
         gender: 0,
         dob: new Date(),
         players: 3

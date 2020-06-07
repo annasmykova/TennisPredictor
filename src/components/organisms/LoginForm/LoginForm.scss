@@ -36,6 +36,8 @@
   .MuiFormControl-root,
   .MuiTextField-root {
     margin-bottom: 40px;
+    position: relative;
+
     .MuiInput-underline:hover:not(.Mui-disabled):before {
       border-color: $text-color;
     }
@@ -50,6 +52,11 @@
     }
     .MuiInput-underline:after {
       border-color: $default-color;
+    }
+
+    .MuiFormHelperText-root.Mui-error {
+      position: absolute;
+      top: 100%;
     }
   }
 

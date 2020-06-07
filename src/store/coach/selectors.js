@@ -12,8 +12,8 @@ export const initialState = {
       lastName: 'Svitolina',
       gender: 1,
       age: 24,
-      country: 'UA',
-      hand: 0,
+      country: 'UKR',
+      hand: 'R',
     }]]
   },
   players: {
@@ -29,8 +29,8 @@ export const initialState = {
       lastName: 'Svitolina',
       gender: 1,
       age: 24,
-      country: 'UA',
-      hand: 0,
+      country: 'UKR',
+      hand: 'R',
     }]]
   },
 }

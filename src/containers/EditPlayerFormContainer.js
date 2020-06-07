@@ -1,8 +1,11 @@
 import React from 'react'
-import { signUp } from 'store/actions'
+import { editUser } from 'store/actions'
+import { fromAuth } from 'store/selectors'
 import { reduxForm } from 'redux-form'
 
-import { PlayerForm } from 'components'
+import { EditPlayerForm } from 'components'
+import { connect } from 'react-redux';
+import { PlayerForm } from '../components';
 
 
 const validate = values => {
@@ -18,31 +21,10 @@ const validate = values => {
   } else if (!/^[A-Z]+$/i.test(values.lastName)) {
     errors.lastName = 'Last name must consist only letters'
   }
-  if (!values.email) {
-    errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
-  }
-  if (!values.password) {
-    errors.password = 'Required'
-  } else if (values.password.length < 8) {
-    errors.password = 'Password must be at least 8 signs'
-  }
   if (!values.dob) {
     errors.dob = 'Required'
   } else if (new Date() < values.dob) {
     errors.dob = 'Date of Birth can\'t be in future'
-  }
-  if (values.photo && (values.photo[0].size / (1024*1024)).toFixed(2) > 2) {
-    errors.photo = 'Maximum size of photo is 2 MB'
-  } else if (values.photo && values.photo.length > 1) {
-    errors.photo = 'Only 1 photo is allowed'
-  }
-  if (!values.gender) {
-    errors.gender = 'Required'
-  }
-  if (!values.country) {
-    errors.country = 'Required'
   }
   if (!values.coach) {
     errors.coach = 'Required'
@@ -50,27 +32,29 @@ const validate = values => {
   if (!values.hand) {
     errors.hand = 'Required'
   }
-  if (!values.profyStatus) {
-    errors.profyStatus = 'Required'
-  }
   return errors
 }
 
-
 const onSubmit = (data, dispatch) => {
-  let { dob } = data
+  let { dob, coach } = data
   if (typeof dob === 'string') {
     dob = new Date(dob)
   }
+  if (typeof coach === 'object') {
+    coach = coach.id
+  }
+
+  console.log('coach', coach);
+  console.log('coach', typeof coach);
 
   const newData= {
     ...data,
     dob,
+    coach
   }
+  console.log(newData);
 
   const formData = new FormData()
-
-  formData.append('userType', '1');
 
   Object.keys(newData).forEach(key => {
     if (key === 'photo') {
@@ -81,17 +65,24 @@ const onSubmit = (data, dispatch) => {
       formData.append(key, newData[key]);
     }
   })
-  dispatch(signUp(formData))
+  for (const value of formData.values()) {
+    console.log('formData', value);
+  }
+  dispatch(editUser(formData))
 }
 
-let PlayerFormContainer = props => {
-  return (<PlayerForm {...props}  filter="coach"/>)
+let EditPlayerFormContainer = props => {
+  return (<EditPlayerForm {...props} filter="coach"/>)
 }
 
-
-export default reduxForm({
+EditPlayerFormContainer = reduxForm({
   // a unique name for the form
-  form: 'playerForm',
+  form: 'coachForm',
   validate,
   onSubmit
-})(PlayerFormContainer)
+})(EditPlayerFormContainer)
+
+export default connect(state => ({
+  initialValues: fromAuth.getPlayerFormData(state),
+  loading: fromAuth.getLoading(state),
+}))(EditPlayerFormContainer)

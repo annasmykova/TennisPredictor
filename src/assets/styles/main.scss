@@ -92,10 +92,25 @@ select {
 
 .form-default {
   width: 700px;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
+
+  &.modal-form {
+    margin: 0;
+    padding: 24px;
+
+    .MuiFormControl-root {
+      margin-top: 0;
+      width: 100%;
+
+      .MuiInputBase-root.Mui-disabled {
+        color: $text-color;
+      }
+    }
+  }
 }
 
 .hidden {
@@ -172,6 +187,7 @@ select {
               .avatar {
                 width: 110px;
                 height: 110px;
+                margin-bottom: 10px;
               }
               .valueText {
                 height: 100%;
@@ -194,9 +210,7 @@ select {
                   text-align: left;
                 }
               }
-
             }
-
           }
         }
       }
@@ -215,6 +229,10 @@ select {
   .MuiTextField-root {
     width: 100%;
     text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+
     .MuiInput-underline:hover:not(.Mui-disabled):before {
       border-color: $text-color;
     }
@@ -234,6 +252,34 @@ select {
     .default-btn {
       margin-bottom: 10px;
     }
+
+    .search-list,
+    .MuiFormHelperText-root.Mui-error {
+      position: absolute;
+      top: 100%;
+    }
+
+    .search-list {
+      z-index: 2;
+      background: #fff;
+      width: 100%;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      line-height: 18px;
+      box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+      .MuiList-root {
+        .MuiListItem-root {
+          padding: 0;
+
+          span {
+            padding: 10px 20px;
+            display: flex;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
   }
 
   .default-btn {
@@ -243,4 +289,27 @@ select {
 
 .rating-card {
   margin: 50px 0;
+}
+
+.link-default {
+  color: $text-color;
+  text-decoration: none;
+  transition: color .3s ease-in-out;
+
+  &:hover {
+    color: $default-color;
+  }
+}
+
+.rating-card__wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  .rating-card {
+    width: 100%;
+  }
+
+  .default-btn {
+    margin: 50px 0 50px 200px;
+  }
 }

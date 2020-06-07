@@ -14,14 +14,24 @@ export default (state = initialState, { type, payload }) => {
         coach: payload
       }
     case GET_REQUESTS_SUCCESS:
+      const requests = [ ...state.requests.data ]
+      requests[payload.page - 1] = payload.data
       return {
         ...state,
-        requests: payload
+        requests: {
+          ...payload,
+          data: requests,
+        },
       }
     case GET_PLAYERS_SUCCESS:
+      const players = [ ...state.players.data ]
+      players[payload.page - 1] = payload.data
       return {
         ...state,
-        players: payload
+        players: {
+          ...payload,
+          data: players,
+        },
       }
     case RESOLVE_REQUEST_SUCCESS:
       return {

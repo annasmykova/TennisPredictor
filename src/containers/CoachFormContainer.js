@@ -24,7 +24,9 @@ const validate = values => {
   if (!values.country) {
     errors.country = 'Required'
   }
-  if (new Date() < values.dob) {
+  if (!values.dob) {
+    errors.dob = 'Required'
+  } else if (new Date() < values.dob) {
     errors.dob = 'Date of Birth can\'t be in future'
   }
   if (!values.email) {

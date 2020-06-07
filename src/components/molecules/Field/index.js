@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
@@ -41,12 +41,15 @@ const Field = ({
   const inputProps = {
     id: name, name, type, 'aria-describedby': `${name}Error`, ...props,
   }
+  console.log(inputProps);
   const classes = useStyles();
 
   const handleAutocompleteChange = ({ target: {value }}) => {
     console.log(value);
     if (value.length > 2) {
       getItemList(value, props.filter)
+    } else if (!value) {
+      props.onChange(null)
     }
     setAutocompleteText(value)
   }
@@ -55,6 +58,12 @@ const Field = ({
     props.onChange(item.id)
     setAutocompleteText(item.text)
   }
+
+  useEffect(() => {
+    if (inputProps.defaultValue && inputProps.defaultValue.text) {
+      setAutocompleteText(inputProps.defaultValue.text)
+    }
+  }, [])
 
   const [autocompleteFocus, setFocus] = useState(false);
 
@@ -66,6 +75,7 @@ const Field = ({
         <TextField
           className={`${classes.root} autocomplete-field`}
           {...inputProps}
+          defaultValue={inputProps.defaultValue ? inputProps.defaultValue.text : ''}
           type="text"
           value={autocompleteText}
           onChange={handleAutocompleteChange}

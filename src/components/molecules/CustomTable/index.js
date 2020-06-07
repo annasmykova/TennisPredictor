@@ -48,9 +48,11 @@ export default function CustomizedTables({ headArray, data, handleRowClick, butt
               {
                 Object.keys(headArray).map((item, idx) =>
                   (<StyledTableCell key={idx} align={headArray[item].align}>{
-                    item === 'button'
-                      ? buttonRender(row)
-                      : row[item]
+                    headArray[item].renderComponent
+                      ? headArray[item].renderComponent(row)
+                      : item === 'button'
+                        ? buttonRender(row)
+                        : row[item]
                   }</StyledTableCell>)
                 )
               }

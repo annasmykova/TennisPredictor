@@ -6,8 +6,8 @@ export default (state = initialState, { type, payload }) => {
     case GET_RATING:
       return state
     case GET_RATING_SUCCESS:
-      const data = [ ...state.data ]
-      data[payload.page] = payload.data
+      const data = [ ...state[payload.filter].data ]
+      data[payload.page - 1] = payload.data
       return {
         ...state,
         [payload.filter]: {

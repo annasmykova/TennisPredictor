@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from '../../components/atoms/Avatar';
-import { countryList, HandEnum, SexEnum } from '../constants/constants';
+import { countryList, HandEnum, InjuryEnum, SexEnum, TourneyLevels } from '../constants/constants';
 import ResolveRequestWrapper from '../../components/molecules/ResolveRequestWrapper';
 
 export const getRatingTableData = data => {
@@ -22,6 +22,32 @@ export const getRequestTableData = data => {
     hand: HandEnum[row.hand],
     country: countryList[row.country].name,
     name: `${row.firstName} ${row.lastName}`
+  }))
+}
+
+export const getMatchesTableData = data => {
+  return data.map((row, idx) => ({
+    ...row,
+    index: idx + 1,
+    winner: {
+      ...row.winner,
+      name: `${row.winner.firstName} ${row.winner.lastName}`
+    },
+    loser: {
+      ...row.loser,
+      name: `${row.loser.firstName} ${row.loser.lastName}`
+    },
+    tournamentType: TourneyLevels[row.tournamentType],
+    date: new Date(row.date).toLocaleDateString()
+  }))
+}
+
+export const getInjuriesTableData = data => {
+  return data.map((row, idx) => ({
+    index: idx + 1,
+    injury: InjuryEnum[row.injury],
+    date: new Date(row.date).toLocaleDateString(),
+    finishDate: new Date(row.finishDate).toLocaleDateString(),
   }))
 }
 

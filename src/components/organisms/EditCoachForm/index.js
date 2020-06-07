@@ -20,19 +20,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditCoachForm = props => {
-  const { handleSubmit, loading, closeForm } = props
+  const { handleSubmit, closeForm } = props
   const classes = useStyles();
-
-  const [isInitial, setInitial] = useState(true);
-  useEffect(() => {
-    if (!loading) {
-      if (isInitial) {
-        setInitial(false)
-      } else {
-        closeForm()
-      }
-    }
-  }, [loading])
 
   return (
     <form className="profile-form" onSubmit={handleSubmit}>
@@ -81,6 +70,9 @@ const EditCoachForm = props => {
                     className={classNames('default-btn')}
                     variant="outlined"
                     type="submit"
+                    onClick={() => {
+                      setTimeout(closeForm, 3000)
+                    }}
                   >Save Changes</Button>
                 </Grid>
               </Grid>

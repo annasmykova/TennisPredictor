@@ -12,7 +12,7 @@ import cookie from 'react-cookie'
 import '../assets/styles/main.scss'
 
 import { HomePage, Header, SideBar, LoginPage, SignUpPage, SettingsPage, MyPlayersPage } from 'components'
-import { HomePageContainer, CoachPageContainer } from 'containers';
+import { HomePageContainer, CoachPageContainer, PlayerPageContainer } from 'containers';
 
 const App = ({ user, getUser }) => {
   console.log(user);
@@ -55,6 +55,7 @@ const App = ({ user, getUser }) => {
             }
             return <SignUpPage />
           }} exact />
+          <Route path="/player/:playerId" render={() => <PlayerPageContainer />} exact />
           <Route path="/coach/:coachId" render={() => <CoachPageContainer />} exact />
           <Route path="/coach/:coachId/players" render={() => {
             if (!userToken) {
