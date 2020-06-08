@@ -33,27 +33,27 @@ export function* logoutSaga() {
 
 export function* loginSaga({ payload }) {
   try {
-    // const data = yield call([api, api.post], `/login`, payload)
-    const data = {
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-      userData: {
-        id: 123,
-        firstName: 'Anna',
-        lastName: 'Smykova',
-        hand: 'L',
-        gender: 1,
-        position: 2,
-        dob: new Date(),
-        userType: 1,
-        country: 'UKR',
-        photo: null,
-        coach: {
-          id: 2,
-          text: 'Daniel Pilipets'
-        },
-        profyStatus: 0
-      }
-    }
+    const data = yield call([api, api.post], `/login`, payload)
+    // const data = {
+    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
+    //   userData: {
+    //     id: 123,
+    //     firstName: 'Anna',
+    //     lastName: 'Smykova',
+    //     hand: 'L',
+    //     gender: 1,
+    //     position: 2,
+    //     dob: new Date(),
+    //     userType: 1,
+    //     country: 'UKR',
+    //     photo: null,
+    //     coach: {
+    //       id: 2,
+    //       text: 'Daniel Pilipets'
+    //     },
+    //     profyStatus: 0
+    //   }
+    // }
     if (data.userWithoutCoach) {
       yield put(showError(data))
       yield put(push('/'))
@@ -120,7 +120,7 @@ export function* changePassSaga({ payload }) {
 
 export function* getUserSaga({ payload }) {
   try {
-    // const data = yield call([api, api.get], `/user/${payload}`)
+    const data = yield call([api, api.get], `/user/${payload}`)
     // const data = {
     //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
     //   userData: {
@@ -135,31 +135,30 @@ export function* getUserSaga({ payload }) {
     //     players: 3
     //   }
     // }
-    const data = {
-      token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-      userData:  {
-        id: 123,
-        firstName: 'Anna',
-        lastName: 'Smykova',
-        hand: 'L',
-        gender: 1,
-        position: 2,
-        dob: new Date(),
-        userType: 1,
-        country: 'UKR',
-        photo: null,
-        coach: {
-          id: 2,
-          text: 'Daniel Pilipets'
-        },
-        profyStatus: 0
-      }
-    }
+    // const data = {
+    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
+    //   userData:  {
+    //     id: 123,
+    //     firstName: 'Anna',
+    //     lastName: 'Smykova',
+    //     hand: 'L',
+    //     gender: 1,
+    //     position: 2,
+    //     dob: new Date(),
+    //     userType: 1,
+    //     country: 'UKR',
+    //     photo: null,
+    //     coach: {
+    //       id: 2,
+    //       text: 'Daniel Pilipets'
+    //     },
+    //     profyStatus: 0
+    //   }
+    // }
     if (data.error) {
       yield put(showError(data.error))
     } else {
-      yield put(getUserSuccess(data.userData))
-      cookie.save('token', data.token, { path: '/' })
+      yield put(getUserSuccess(data))
     }
   } catch (e) {
     console.log(e);
@@ -193,8 +192,7 @@ export function* editUserSaga({ payload }) {
     if (data.error) {
       yield put(showError(data.error))
     } else {
-      yield put(editUserSuccess(data.userData))
-      cookie.save('token', data.token, { path: '/' })
+      yield put(editUserSuccess(data))
     }
   } catch (e) {
     yield put(editUserFail())

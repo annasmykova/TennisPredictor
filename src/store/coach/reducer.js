@@ -1,5 +1,6 @@
 import { initialState } from './selectors'
 import {
+  CLEAR_COACH_DATA,
   GET_COACH_SUCCESS,
   GET_PLAYERS_SUCCESS,
   GET_REQUESTS_SUCCESS,
@@ -38,6 +39,8 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         requests: state.requests.data.filter(item => item.id !== payload)
       }
+    case CLEAR_COACH_DATA:
+      return initialState
     default:
       return state
   }

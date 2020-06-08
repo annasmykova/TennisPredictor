@@ -66,13 +66,13 @@ const App = ({ user, getUser, error }) => {
             return <SignUpPage />
           }} exact />
           <Route path="/player/:playerId" render={() => <PlayerPageContainer />} exact />
-          <Route path="/coach/:coachId" render={() => <CoachPageContainer />} exact />
           <Route path="/coach/:coachId/players" render={() => {
             if (!userToken) {
               return <Redirect to="/"/>
             }
             return <MyPlayersPage/>
           }} exact />
+          <Route path="/coach/:coachId" render={() => <CoachPageContainer />} exact />
           <Route path="/settings" render={() => {
             if (!userToken) {
               return <Redirect to="/"/>

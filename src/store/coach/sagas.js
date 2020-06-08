@@ -16,33 +16,33 @@ import { showError } from '../error/actions';
 
 export function* getCoachSaga({ payload }) {
   try {
-    let data;
-    // const data = yield call([api, api.get], `/coach/${payload}`)
-    if (payload === 2 ) {
-      data = {
-        id: 2,
-        firstName: 'Daniel',
-        lastName: 'Pilipets',
-        userType: 0,
-        photo: null,
-        country: 'UKR',
-        gender: 0,
-        dob: new Date(),
-        players: 3
-      }
-    } else {
-      data = {
-        id: 4,
-        firstName: 'Sergey',
-        lastName: 'Sergey',
-        userType: 0,
-        photo: null,
-        country: 'UKR',
-        gender: 0,
-        dob: new Date(),
-        players: 3
-      }
-    }
+    // let data;
+    const data = yield call([api, api.get], `/coach/${payload}`)
+    // if (payload === 2 ) {
+    //   data = {
+    //     id: 2,
+    //     firstName: 'Daniel',
+    //     lastName: 'Pilipets',
+    //     userType: 0,
+    //     photo: null,
+    //     country: 'UKR',
+    //     gender: 0,
+    //     dob: new Date(),
+    //     players: 3
+    //   }
+    // } else {
+    //   data = {
+    //     id: 4,
+    //     firstName: 'Sergey',
+    //     lastName: 'Sergey',
+    //     userType: 0,
+    //     photo: null,
+    //     country: 'UKR',
+    //     gender: 0,
+    //     dob: new Date(),
+    //     players: 3
+    //   }
+    // }
     if (data.error) {
       yield put(showError(data.error))
     } else {

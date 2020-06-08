@@ -9,7 +9,6 @@ import {
   EDIT_USER,
   EDIT_USER_FAIL
 } from './actions'
-import { CLEAR_COACH_DATA } from '../coach/actions';
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -42,8 +41,6 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         data: null
       }
-    case CLEAR_COACH_DATA:
-      return initialState
     default:
       return state
   }
