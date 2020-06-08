@@ -37,21 +37,26 @@ export default (state = initialState, { type, payload }) => {
         },
       }
     case CREATE_MATCH_SUCCESS:
-      const firstPageMatches = state.matches[0] || []
+      const [ firstPageMatch, ...otherMatchPages] = state.matches.data
+      const firstPageMatches = firstPageMatch || []
       return {
         ...state,
         matches: {
           ...state.matches,
-          data: [[payload, ...firstPageMatches], ...state.matches.data]
+          data: [[payload, ...firstPageMatches], ...otherMatchPages]
         }
       }
     case CREATE_INJURY_SUCCESS:
-      const firstPageInjuries = state.injuries[0] || []
+      const [ firstPageInjury, ...otherInjuryPages] = state.injuries.data
+      const firstPageInjuries = firstPageInjury || []
+      const newFirstPageInjuries = firstPageInjuries.find(item => item.injury === payload.injury)
+        ? firstPageInjuries.map(item => item.injury === payload.injury ? payload : item )
+        : [payload, ...firstPageInjuries]
       return {
         ...state,
         injuries: {
           ...state.injuries,
-          data: [[payload, ...firstPageInjuries], ...state.injuries.data]
+          data: [[...newFirstPageInjuries], ...otherInjuryPages]
         }
       }
     case GET_PREDICTION_SUCCESS:

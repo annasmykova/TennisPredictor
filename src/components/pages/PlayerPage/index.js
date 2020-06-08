@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 
 const PlayerPage = props => {
 
-
   const [title, setTitle] = useState('Player')
 
   useEffect(() => {

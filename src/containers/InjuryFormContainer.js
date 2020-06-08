@@ -19,7 +19,10 @@ const validate = values => {
 }
 
 const onSubmit = (data, dispatch) => {
-  dispatch(createInjury(data))
+  dispatch(createInjury({
+    ...data,
+    date: new Date(data.date).toISOString()
+  }))
 }
 
 let InjuryFormContainer = props => {

@@ -1,17 +1,24 @@
 import React, { useState } from 'react'
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import './SearchField.scss'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
 import { connect } from 'react-redux';
 import { fromSearch } from 'store/selectors'
-import { push } from 'connected-react-router'
-import { getSearchList, getSearchListSuccess } from 'store/actions';
+import { getSearchList, getPrediction, getSearchListSuccess } from 'store/actions';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
+  paper: {
+    marginRight: theme.spacing(2),
+  },
   search: {
     position: 'relative',
     marginLeft: 'auto',
@@ -50,17 +57,18 @@ const useStyles = makeStyles((theme) => ({
 }), { name:'search-field'});
 
 
-const SearchField = ({ getItemList, getItemListSuccess, itemList, push }) => {
+const PredictionSearchField = ({ player, getPrediction, getItemList, itemList, getItemListSuccess }) => {
   const classes = useStyles();
+
   const handleAutocompleteChange = ({ target: {value }}) => {
     if (value.length > 2) {
-      getItemList(value)
+      getItemList(value, 'player')
     }
     setAutocompleteText(value)
   }
 
   const setSearchItem = item => {
-    push(`/${item.type}/${item.id}`)
+    getPrediction(player.id, item.id)
     setAutocompleteText(item.text)
     getItemListSuccess([])
   }
@@ -70,22 +78,17 @@ const SearchField = ({ getItemList, getItemListSuccess, itemList, push }) => {
   const [autocompleteText, setAutocompleteText] = useState('');
 
   return (
-    <div className={`${classes.search} search-field`}>
-      <InputBase
-        placeholder="Search…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
+    <FormControl>
+      <TextField
+        className={`${classes.root} autocomplete-field`}
+        label="Other Player"
+        type="text"
         value={autocompleteText}
         onChange={handleAutocompleteChange}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
+        autoComplete="off"
       />
-      <div className={`${classes.searchIcon} search-field__icon`}>
-        <SearchIcon />
-      </div>
       {
         autocompleteFocus && autocompleteText && itemList  && (
           <Paper className={`${classes.paper} search-list`}>
@@ -104,7 +107,7 @@ const SearchField = ({ getItemList, getItemListSuccess, itemList, push }) => {
           </Paper>
         )
       }
-    </div>
+    </FormControl>
   )
 }
 
@@ -113,5 +116,5 @@ export default connect(state => ({
 }), {
   getItemList: getSearchList,
   getItemListSuccess: getSearchListSuccess,
-  push
-})(SearchField)
+  getPrediction
+})(PredictionSearchField)

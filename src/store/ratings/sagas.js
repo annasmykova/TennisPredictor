@@ -3,17 +3,22 @@ import {
 } from 'redux-saga/effects'
 import { GET_RATING, getRatingDataSuccess } from './actions';
 import api from '../../services/api';
+import { showError } from '../error/actions';
+import { resolveRequestSuccess } from '../coach/actions';
 
 
 export function* getRatingSaga({ payload }) {
   try {
-    const data = yield call(api.get(`/rating`, {
+    const data = yield call([api, api.get], `/rating`, {
       params: {
         ...payload
       }
-    }))
-    yield put(getRatingDataSuccess(payload.filter, data))
-    console.log(data);
+    })
+    if (data.error) {
+      yield put(showError(data.error))
+    } else {
+      yield put(getRatingDataSuccess(payload.filter, data))
+    }
   } catch (e) {
     console.log(e);
   }

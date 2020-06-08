@@ -14,7 +14,7 @@ const CustomPagination = ({ count , handlePageChange}) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Pagination count={count} onChange={handlePageChange} />
+      {count ? <Pagination count={count} onChange={handlePageChange} /> : ''}
     </div>
   );
 }

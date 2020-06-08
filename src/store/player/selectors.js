@@ -29,6 +29,6 @@ export const getPlayer = (state = initialState) =>
   state.player || initialState.player;
 export const getMatches = (state = initialState) => state.matches || initialState.matches;
 export const getInjuries = (state = initialState) => state.injuries || initialState.injuries;
-export const getPredictionResult = (state = initialState) => state.injuries.result || initialState.injuries.result;
-export const getPredictionOtherPlayer = (state = initialState) => state.injuries.otherPlayer ||
-  initialState.injuries.otherPlayer;
+export const getPredictionResult = (state = initialState) => state.prediction.result || initialState.prediction.result;
+export const getPredictionOtherPlayer = (state = initialState) => state.prediction.otherPlayer ||
+  initialState.prediction.otherPlayer;

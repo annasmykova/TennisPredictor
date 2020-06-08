@@ -41,23 +41,29 @@ export default function CustomizedTables({ headArray, data, handleRowClick, butt
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
-            <TableRow className={`${handleRowClick && 'with-hover'}`}  key={row.id} onClick={() => {
-              handleRowClick && handleRowClick(row)
-            }}>
-              {
-                Object.keys(headArray).map((item, idx) =>
-                  (<StyledTableCell key={idx} align={headArray[item].align}>{
-                    headArray[item].renderComponent
+          {
+            data && data.length
+            ? data.map((row) => (
+              <TableRow className={`${handleRowClick && 'with-hover'}`} key={row.id} onClick={() => {
+                handleRowClick && handleRowClick(row)
+              }}>
+                {
+                  Object.keys(headArray).map((item, idx) =>
+                    (<StyledTableCell key={idx} align={headArray[item].align}>{
+                      headArray[item].renderComponent
                       ? headArray[item].renderComponent(row)
                       : item === 'button'
                         ? buttonRender(row)
                         : row[item]
-                  }</StyledTableCell>)
-                )
-              }
-            </TableRow>
-          ))}
+                    }</StyledTableCell>)
+                  )
+                }
+              </TableRow>
+            ))
+            : (<TableRow>
+              <StyledTableCell>No data found</StyledTableCell>
+            </TableRow>)
+          }
         </TableBody>
       </Table>
     </TableContainer>

@@ -4,8 +4,9 @@ import { connect, ReactReduxContext } from 'react-redux'
 import { history } from '../store/configure'
 import { ToastContainer } from 'react-toastify';
 import { ConnectedRouter } from 'connected-react-router'
-import { fromAuth } from 'store/selectors'
+import { fromAuth, fromError } from 'store/selectors'
 import { getUser } from 'store/actions'
+import { toast } from 'react-toastify';
 import jwt_decode from 'jwt-decode'
 import cookie from 'react-cookie'
 
@@ -14,14 +15,23 @@ import '../assets/styles/main.scss'
 import { HomePage, Header, SideBar, LoginPage, SignUpPage, SettingsPage, MyPlayersPage } from 'components'
 import { HomePageContainer, CoachPageContainer, PlayerPageContainer } from 'containers';
 
-const App = ({ user, getUser }) => {
-  console.log(user);
+const App = ({ user, getUser, error }) => {
   const userToken = cookie.load('token')
   useEffect(() => {
     if (userToken && !user) {
       getUser(jwt_decode(userToken).id);
     }
   }, [user])
+
+  useEffect(() => {
+    if (error) {
+      if (error.userWithoutCoach) {
+        toast.success(error.userWithoutCoach)
+      } else {
+        toast.error(error.message ? error.message.toString() : error.toString());
+      }
+    }
+  }, [error])
 
   return (
     <ConnectedRouter history={history}  context={ReactReduxContext}>
@@ -76,4 +86,7 @@ const App = ({ user, getUser }) => {
   )
 }
 
-export default connect(state => ({ user: fromAuth.getUser(state) }), { getUser })(App)
+export default connect(state => ({
+  user: fromAuth.getUser(state),
+  error: fromError.getError(state)
+}), { getUser })(App)

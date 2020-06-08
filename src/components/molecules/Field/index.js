@@ -36,18 +36,17 @@ const Field = ({
     getItemList,
     itemList,
     filter,
+    getItemListSuccess,
     ...props
   }) => {
   const inputProps = {
     id: name, name, type, 'aria-describedby': `${name}Error`, ...props,
   }
-  console.log(inputProps);
   const classes = useStyles();
 
   const handleAutocompleteChange = ({ target: {value }}) => {
-    console.log(value);
     if (value.length > 2) {
-      getItemList(value, props.filter)
+      getItemList(value, filter)
     } else if (!value) {
       props.onChange(null)
     }
@@ -71,7 +70,7 @@ const Field = ({
 
   if (type === 'autocomplete') {
     return (
-      <FormControl className={`${classes.formControl}`}>
+      <FormControl>
         <TextField
           className={`${classes.root} autocomplete-field`}
           {...inputProps}

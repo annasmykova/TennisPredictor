@@ -11,12 +11,13 @@ import {
   resolveRequestSuccess
 } from './actions';
 import api from '../../services/api';
+import { showError } from '../error/actions';
 
 
 export function* getCoachSaga({ payload }) {
   try {
     let data;
-    // const data = yield call(api.get(`/coach/${payload}`))
+    // const data = yield call([api, api.get], `/coach/${payload}`)
     if (payload === 2 ) {
       data = {
         id: 2,
@@ -42,8 +43,11 @@ export function* getCoachSaga({ payload }) {
         players: 3
       }
     }
-    yield put(getCoachSuccess(data))
-    console.log(data);
+    if (data.error) {
+      yield put(showError(data.error))
+    } else {
+      yield put(getCoachSuccess(data))
+    }
   } catch (e) {
     console.log(e);
   }
@@ -51,13 +55,16 @@ export function* getCoachSaga({ payload }) {
 
 export function* getPlayersSaga({ payload }) {
   try {
-    const data = yield call(api.get(`/coach/${payload.coachId}/players`, {
+    const data = yield call([api, api.get], `/coach/${payload.coachId}/players`, {
       params: {
         ...payload.params
       }
-    }))
-    yield put(getPlayersSuccess(data))
-    console.log(data);
+    })
+    if (data.error) {
+      yield put(showError(data.error))
+    } else {
+      yield put(getPlayersSuccess(data))
+    }
   } catch (e) {
     console.log(e);
   }
@@ -65,13 +72,16 @@ export function* getPlayersSaga({ payload }) {
 
 export function* getRequestsSaga({ payload }) {
   try {
-    const data = yield call(api.get(`/coach/${payload.coachId}/requests`, {
+    const data = yield call([api, api.get], `/coach/${payload.coachId}/requests`, {
       params: {
         ...payload.params
       }
-    }))
-    yield put(getRequestsSuccess(data))
-    console.log(data);
+    })
+    if (data.error) {
+      yield put(showError(data.error))
+    } else {
+      yield put(getRequestsSuccess(data))
+    }
   } catch (e) {
     console.log(e);
   }
@@ -79,11 +89,14 @@ export function* getRequestsSaga({ payload }) {
 
 export function* resolveRequestSaga({ payload }) {
   try {
-    const data = yield call(api.post(`/coach/${payload.coachId}/requests/${payload.requestId}`, {
+    const data = yield call([api, api.post], `/coach/${payload.coachId}/requests/${payload.requestId}`, {
       ...payload.data
-    }))
-    yield put(resolveRequestSuccess(payload.requestId))
-    console.log(data);
+    })
+    if (data.error) {
+      yield put(showError(data.error))
+    } else {
+      yield put(resolveRequestSuccess(payload.requestId))
+    }
   } catch (e) {
     console.log(e);
   }

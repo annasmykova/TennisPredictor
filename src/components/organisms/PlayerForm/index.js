@@ -5,7 +5,7 @@ import { ReduxField } from 'components';
 import classNames from 'classnames';
 import { CountrySelectList, HandEnum, SexEnum, ProfyStatus } from '../../../utils/constants/constants';
 import { fromSearch } from 'store/selectors'
-import { getSearchList } from 'store/actions'
+import { getSearchList, getSearchListSuccess } from 'store/actions'
 import { connect } from 'react-redux';
 
 let PlayerForm = props => {
@@ -31,6 +31,7 @@ let PlayerForm = props => {
         itemList={props.itemList}
         getItemList={props.getItemList}
         filter={props.filter}
+        getItemListSuccess={props.getItemListSuccess}
       />
       <Field name="hand" label="Hand" type="select" component={ReduxField} values={HandEnum}/>
       <Field name="profyStatus" label="Professional Status" type="select" component={ReduxField} values={ProfyStatus}/>
@@ -46,5 +47,6 @@ let PlayerForm = props => {
 export default connect(state => ({
   itemList: fromSearch.getSearchData(state)
 }), {
-  getItemList: getSearchList
+  getItemList: getSearchList,
+  getItemListSuccess: getSearchListSuccess,
 })(PlayerForm)

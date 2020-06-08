@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { fromSearch } from 'store/selectors'
-import { getSearchList } from 'store/actions';
+import { getSearchList, getSearchListSuccess } from 'store/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,6 +73,7 @@ const EditPlayerForm = props => {
                            component={ReduxField}
                            filter={props.filter}
                            itemList={props.itemList}
+                           getItemListSuccess={props.getItemListSuccess}
                            getItemList={props.getItemList}/>
                   </Grid>
                 </Grid>
@@ -114,5 +115,6 @@ const EditPlayerForm = props => {
 export default connect(state => ({
   itemList: fromSearch.getSearchData(state)
 }), {
-  getItemList: getSearchList
+  getItemList: getSearchList,
+  getItemListSuccess: getSearchListSuccess,
 })(EditPlayerForm)

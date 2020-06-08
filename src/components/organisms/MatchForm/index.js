@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { PlayerEnum, SurfaceEnum, TourneyLevels } from '../../../utils/constants/constants';
 import { connect } from 'react-redux';
 import { fromSearch } from 'store/selectors';
-import { getSearchList } from 'store/actions';
+import { getSearchList, getSearchListSuccess } from 'store/actions';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
@@ -58,7 +58,6 @@ const DialogContent = withStyles((theme) => ({
 
 let MatchForm = props => {
   const {handleSubmit, closeModal} = props
-  console.log('!!!!!!!!!!!!!!!!!!!!', props);
 
   return (
     <Fragment>
@@ -101,6 +100,7 @@ let MatchForm = props => {
                     component={ReduxField}
                     itemList={props.itemList}
                     getItemList={props.getItemList}
+                    getItemListSuccess={props.getItemListSuccess}
                   />
                 </Grid>
                 <Grid item xs>
@@ -133,5 +133,6 @@ let MatchForm = props => {
 export default connect(state => ({
   itemList: fromSearch.getSearchData(state)
 }), {
-  getItemList: getSearchList
+  getItemList: getSearchList,
+  getItemListSuccess: getSearchListSuccess,
 })(MatchForm)

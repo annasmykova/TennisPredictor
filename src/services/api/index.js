@@ -4,15 +4,12 @@ import { apiUrl } from 'config'
 import cookie from 'react-cookie'
 
 export const checkStatus = (response) => {
-  if (response.ok) {
-    return response
-  }
-  const error = new Error(`${response.status} ${response.statusText}`)
-  error.response = response
-  throw error
+  return response
 }
 
-export const parseJSON = (response) => response.json()
+export const parseJSON = (response) => {
+  return response.json()
+}
 
 export const parseSettings = ({
   method = 'get', data, locale, ...otherSettings
@@ -24,13 +21,6 @@ export const parseSettings = ({
   }
   if (!otherSettings['Content-Type']) {
     headers['Content-Type'] = 'application/json'
-  }
-  if (otherSettings['Content-Type']) {
-
-    console.log(data);
-    for (const value of data.values()) {
-      console.log('formData', value);
-    }
   }
   const settings = merge({
     body: data
@@ -53,7 +43,6 @@ export const parseEndpoint = (endpoint, params) => {
 const api = {}
 
 api.request = (endpoint, { params, ...settings } = {}) => fetch(parseEndpoint(endpoint, params), parseSettings(settings))
-  .then(checkStatus)
   .then(parseJSON);
 ['delete', 'get'].forEach((method) => {
   api[method] = (endpoint, settings) => api.create().request(endpoint, { method, ...settings })

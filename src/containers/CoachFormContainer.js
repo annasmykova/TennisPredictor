@@ -6,7 +6,6 @@ import { CoachForm } from 'components'
 
 
 const validate = values => {
-  console.log(values);
   const errors = {}
   if (!values.firstName) {
     errors.firstName = 'Required'
@@ -45,14 +44,13 @@ const validate = values => {
 const onSubmit = (data, dispatch) => {
   let { dob, photo } = data
   if (typeof dob === 'string') {
-    dob = new Date(dob)
+    dob = new Date(dob).toISOString()
   }
 
   const newData= {
     ...data,
     dob,
   }
-  console.log(newData);
 
   const formData = new FormData()
   formData.append('userType', '0');
@@ -66,9 +64,6 @@ const onSubmit = (data, dispatch) => {
       formData.append(key, newData[key]);
     }
   })
-  for (const value of formData.values()) {
-    console.log('formData', value);
-  }
   dispatch(signUp(formData))
 }
 

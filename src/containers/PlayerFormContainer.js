@@ -6,7 +6,6 @@ import { PlayerForm } from 'components'
 
 
 const validate = values => {
-  console.log(values);
   const errors = {}
   if (!values.firstName) {
     errors.firstName = 'Required'
@@ -60,7 +59,7 @@ const validate = values => {
 const onSubmit = (data, dispatch) => {
   let { dob } = data
   if (typeof dob === 'string') {
-    dob = new Date(dob)
+    dob = new Date(dob).toISOString()
   }
 
   const newData= {

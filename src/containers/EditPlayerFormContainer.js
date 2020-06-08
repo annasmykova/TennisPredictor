@@ -9,7 +9,6 @@ import { PlayerForm } from '../components';
 
 
 const validate = values => {
-  console.log(values);
   const errors = {}
   if (!values.firstName) {
     errors.firstName = 'Required'
@@ -38,21 +37,17 @@ const validate = values => {
 const onSubmit = (data, dispatch) => {
   let { dob, coach } = data
   if (typeof dob === 'string') {
-    dob = new Date(dob)
+    dob = new Date(dob).toISOString()
   }
   if (typeof coach === 'object') {
     coach = coach.id
   }
-
-  console.log('coach', coach);
-  console.log('coach', typeof coach);
 
   const newData= {
     ...data,
     dob,
     coach
   }
-  console.log(newData);
 
   const formData = new FormData()
 
@@ -65,9 +60,6 @@ const onSubmit = (data, dispatch) => {
       formData.append(key, newData[key]);
     }
   })
-  for (const value of formData.values()) {
-    console.log('formData', value);
-  }
   dispatch(editUser(formData))
 }
 

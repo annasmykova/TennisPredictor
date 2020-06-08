@@ -13,7 +13,7 @@ const showToast = () => {
 
 const RemoveAccount = ({ user, removeAcc  }) => {
   const handleRemoveAcc = () => {
-    if (!user.players) {
+    if (user.players) {
       showToast()
     } else {
       removeAcc()

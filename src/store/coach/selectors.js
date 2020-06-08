@@ -5,16 +5,7 @@ export const initialState = {
     size: 20,
     sort: 'asc',
     total: 80,
-    data: [[{
-      id: 1,
-      photo: null,
-      firstName: 'Elina',
-      lastName: 'Svitolina',
-      gender: 1,
-      age: 24,
-      country: 'UKR',
-      hand: 'R',
-    }]]
+    data: []
   },
   players: {
     page: 1,

@@ -37,7 +37,7 @@ const onSubmit = (data, dispatch) => {
     winner: data.winner ? data.player2 : data.player1.id,
     loser: !data.winner ? data.player2 : data.player1.id,
     score: data.score,
-    date: newDate(data.date),
+    date: new Date(data.date).toISOString(),
     tournamentType: data.tournamentType,
     surface: data.surface,
   }

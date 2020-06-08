@@ -53,7 +53,7 @@ export const signUp = (formData) => ({
 export const signUpSuccess = (userData) => ({
   type: SIGN_UP_SUCCESS,
   payload: {
-    ...userData
+    userData
   },
 })
 

@@ -15,12 +15,54 @@ let PlayerPageContainer = props => {
   const { player, match, user, getPlayer, clearPlayerData } = props;
   const isEditable = user && (+user.id === +match.params.playerId ||
     player && player.coach && +player.coach.id === +user.id)
+
+  const handleMatchesPageChange = key => (event, page) => {
+    props.getMatches(+match.params.playerId, getParams(key, page));
+  }
+
+  const handleInjuriesPageChange = key => (event, page) => {
+    props.getInjuries(+match.params.playerId, getParams(key, page));
+  }
+
   const keys = isEditable
     ? ['bio', 'matches',  'injuries', 'prediction']
     : ['bio', 'matches', 'prediction']
+
   const tabContentArray = isEditable
-    ? ['bio', 'matches',  'injuries', 'prediction']
-    : ['bio', 'matches', 'prediction']
+    ? [
+      <PlayerBio
+        player={player}
+        user={user}
+        getPlayer={getPlayer}
+      />,
+      <MatchesCard
+        data={props.matches}
+        isEditable={isEditable}
+        user={user}
+        handlePageChange={handleMatchesPageChange('matches')}
+      />,
+      <InjuriesCard
+        data={props.injuries}
+        user={user}
+        isEditable={isEditable}
+        handlePageChange={handleInjuriesPageChange('injuries')}
+      />,
+      <PredictionCard player={isEditable ? user : player} />
+    ]
+    : [
+      <PlayerBio
+        player={player}
+        user={user}
+        getPlayer={getPlayer}
+      />,
+      <MatchesCard
+        data={props.matches}
+        isEditable={isEditable}
+        user={user}
+        handlePageChange={handleMatchesPageChange('matches')}
+      />,
+      <PredictionCard player={isEditable ? user : player} />
+    ]
 
   const getParams = (key, page = props[key].page) => {
     return {
@@ -48,15 +90,13 @@ let PlayerPageContainer = props => {
 
   useEffect(() => {
     setIndex(0);
-  }, [props.match])
+  }, [props.match.params.playerId])
 
-  const handleMatchesPageChange = key => (event, page) => {
-    props.getMatches(+match.params.playerId, getParams(key, page));
-  }
-
-  const handleInjuriesPageChange = key => (event, page) => {
-    props.getInjuries(+match.params.playerId, getParams(key, page));
-  }
+  useEffect(() => {
+    if (!user) {
+      setIndex(0);
+    }
+  }, [user])
 
   return (<PlayerPage
     handleChangeTab={setIndex}
@@ -64,31 +104,7 @@ let PlayerPageContainer = props => {
     index={index}
     user={user}
     clearPlayerData={clearPlayerData}
-    tabContentArray={[
-      <PlayerBio
-        player={player}
-        user={user}
-        getPlayer={getPlayer}
-      />,
-      <MatchesCard
-        data={props.matches}
-        isEditable={isEditable}
-        user={user}
-        handlePageChange={handleMatchesPageChange('matches')}
-      />,
-      <InjuriesCard
-        data={props.injuries}
-        user={user}
-        isEditable={isEditable}
-        handlePageChange={handleInjuriesPageChange('injuries')}
-      />,
-      2
-      // <PredictionCard
-      //   data={props.players}
-      //   handlePageChange={handlePlayersPageChange('players')}
-      //   handleRowClick={handlePlayerRowClick}
-      // />
-    ]}
+    tabContentArray={tabContentArray}
   />)
 }
 
