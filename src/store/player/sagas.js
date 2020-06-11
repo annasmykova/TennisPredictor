@@ -156,27 +156,27 @@ export function* createInjurySaga({ payload }) {
 
 export function* getPredictionSaga({ payload }) {
   try {
-    // const data = yield call([api, api.get], `/prediction/${payload.playerId}/${payload.otherPlayerId}`)
-    const data = {
-      player: {
-        id: 34,
-        firstName: 'Natasha',
-        lastName: 'Kovalyova',
-        hand: 'R',
-        gender: 1,
-        position: 2,
-        dob: new Date(),
-        userType: 1,
-        country: 'UKR',
-        photo: null,
-        coach: {
-          id: 2,
-          text: 'Daniel Pilipets'
-        },
-        profyStatus: 0
-      },
-      result: {win: .3, lose: .7}
-    }
+    const data = yield call([api, api.get], `/prediction/${payload.playerId}/${payload.otherPlayerId}`)
+    // const data = {
+    //   player: {
+    //     id: 34,
+    //     firstName: 'Natasha',
+    //     lastName: 'Kovalyova',
+    //     hand: 'R',
+    //     gender: 1,
+    //     position: 2,
+    //     dob: new Date(),
+    //     userType: 1,
+    //     country: 'UKR',
+    //     photo: null,
+    //     coach: {
+    //       id: 2,
+    //       text: 'Daniel Pilipets'
+    //     },
+    //     profyStatus: 0
+    //   },
+    //   result: {win: .3, lose: .7}
+    // }
     if (data.error) {
       yield put(showError(data.error))
     } else {

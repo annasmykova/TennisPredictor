@@ -6,12 +6,12 @@ const config = {
     isDev: process.env.NODE_ENV !== 'production',
     basename: process.env.PUBLIC_PATH,
     isBrowser: typeof window !== 'undefined',
-    apiUrl: 'https://9a9bf37c39e2.ngrok.io',
+    apiUrl: 'https://7ccd99a21c27.ngrok.io',
   },
   test: {},
   development: {},
   production: {
-    apiUrl: 'https://9a9bf37c39e2.ngrok.io',
+    apiUrl: 'https://7ccd99a21c27.ngrok.io',
   },
 }
 

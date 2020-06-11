@@ -55,7 +55,7 @@ const PredictionCard = props => {
         player &&
         <div className="prediction-card__prediction">
           <Grid container spacing={2}>
-            <Grid item xs></Grid>
+            <Grid item xs/>
             <Grid item xs>
               <Typography gutterBottom>
                 {player.firstName + ' ' + player.lastName}
@@ -122,45 +122,52 @@ const PredictionCard = props => {
               <TableBody>
                 <TableRow>
                   <TableCell>Position</TableCell>
-                  <TableCell align="center">{player.position}</TableCell>
+                  <TableCell align="center">{player.position || '-'}</TableCell>
                   <TableCell/>
-                  <TableCell align="center">{otherPlayer ? otherPlayer.position : '-'}</TableCell>
+                  <TableCell align="center">{otherPlayer ? otherPlayer.position || '-' : '-'}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Gender</TableCell>
-                  <TableCell align="center">{SexEnum[player.gender]}</TableCell>
+                  <TableCell align="center">{SexEnum[player.gender] || '-'}</TableCell>
                   <TableCell/>
-                  <TableCell align="center">{otherPlayer ? SexEnum[otherPlayer.gender] : '-'}</TableCell>
+                  <TableCell align="center">{otherPlayer ? SexEnum[otherPlayer.gender] || '-' : '-'}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Date of Birth</TableCell>
-                  <TableCell align="center">{new Date(player.dob).toLocaleDateString()}</TableCell>
+                  <TableCell align="center">{player.dob ? new Date(player.dob).toLocaleDateString() || '-' : '-'}</TableCell>
                   <TableCell/>
                   <TableCell align="center">{
-                    otherPlayer ? new Date(otherPlayer.dob).toLocaleDateString() : '-'
+                    otherPlayer ? new Date(otherPlayer.dob).toLocaleDateString() || '-' : '-'
                   }</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Hand</TableCell>
-                  <TableCell align="center">{HandEnum[player.hand]}</TableCell>
+                  <TableCell align="center">{player.hand ? HandEnum[player.hand] || '-' : '-'}</TableCell>
                   <TableCell/>
-                  <TableCell align="center">{otherPlayer ? HandEnum[otherPlayer.hand] : '-'}</TableCell>
+                  <TableCell align="center">{otherPlayer ? HandEnum[otherPlayer.hand] || '-' : '-'}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Professional Status</TableCell>
-                  <TableCell align="center">{ProfyStatus[player.profyStatus]}</TableCell>
+                  <TableCell align="center">{ProfyStatus[player.profyStatus] || '-'}</TableCell>
                   <TableCell/>
-                  <TableCell align="center">{otherPlayer ? ProfyStatus[otherPlayer.profyStatus] : '-'}</TableCell>
+                  <TableCell align="center">{otherPlayer ? ProfyStatus[otherPlayer.profyStatus] || '-' : '-'}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Coach</TableCell>
                   <TableCell align="center">
-                    <NavLink className="link-default" to={`/coach/${player.coach.id}`}>{player.coach.text}</NavLink>
+                    {
+                      player.coach
+                        ? <NavLink className="link-default" to={`/coach/${player.coach.id}`}>
+                          {player.coach.text}
+                        </NavLink>
+                        : '-'
+                    }
+
                   </TableCell>
                   <TableCell/>
                   <TableCell align="center">
                     {
-                      otherPlayer
+                      otherPlayer && otherPlayer.coach
                       ? <NavLink className="link-default" to={`/coach/${otherPlayer.coach.id}`}>
                         {otherPlayer.coach.text}
                       </NavLink>
@@ -170,9 +177,9 @@ const PredictionCard = props => {
                 </TableRow>
                 <TableRow>
                   <TableCell>Country</TableCell>
-                  <TableCell align="center">{CountrySelectList[player.country]}</TableCell>
+                  <TableCell align="center">{player.country ? CountrySelectList[player.country] : '-'}</TableCell>
                   <TableCell/>
-                  <TableCell align="center">{otherPlayer ? CountrySelectList[otherPlayer.country] : '-'}</TableCell>
+                  <TableCell align="center">{otherPlayer && otherPlayer.country ? CountrySelectList[otherPlayer.country] : '-'}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

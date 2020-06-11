@@ -6,7 +6,7 @@ import { push } from 'connected-react-router'
 function* showErrorSaga({payload}) {
   if (payload.code && +payload.code === 401) {
     yield put(logout())
-  } else if (payload.code === 404) {
+  } else if (payload.status === 404) {
     yield put(push('/'))
   }
 }
