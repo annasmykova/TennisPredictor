@@ -73,15 +73,16 @@ let InjuryForm = props => {
           </Grid>
         </form>
       </DialogContent>
-      <DialogActions>
+      <DialogActions onClick={(e) => {
+        if (e.target.parentNode.className.indexOf('default-btn') !== -1) {
+          setTimeout(closeModal, 3000)
+        }
+      }}>
         <Button
           className={classNames('default-btn')}
           variant="outlined"
           type="submit"
           form="injury-form"
-          onClick={() => {
-            setTimeout(closeModal, 3000)
-          }}
         >Add Injury</Button>
       </DialogActions>
     </Fragment>

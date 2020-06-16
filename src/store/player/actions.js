@@ -22,11 +22,11 @@ export const getPlayerSuccess = (playerData) => ({
   payload: playerData,
 })
 
-export const getMatches = (playerId, data) => ({
+export const getMatches = (playerId, params) => ({
   type: GET_MATCHES,
   payload: {
     playerId,
-    data,
+    params,
   },
 })
 
@@ -37,11 +37,11 @@ export const getMatchesSuccess = (data) => ({
   },
 })
 
-export const getInjuries = (playerId, data) => ({
+export const getInjuries = (playerId, params) => ({
   type: GET_INJURIES,
   payload: {
     playerId,
-    data,
+    params,
   },
 })
 
@@ -69,11 +69,9 @@ export const createInjury = (data) => ({
   payload: data
 })
 
-export const createInjurySuccess = (injury) => ({
+export const createInjurySuccess = (injuries) => ({
   type: CREATE_INJURY_SUCCESS,
-  payload: {
-    ...injury
-  }
+  payload: injuries
 })
 
 export const getPrediction = (playerId, otherPlayerId) => ({

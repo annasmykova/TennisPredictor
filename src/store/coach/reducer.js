@@ -37,7 +37,10 @@ export default (state = initialState, { type, payload }) => {
     case RESOLVE_REQUEST_SUCCESS:
       return {
         ...state,
-        requests: state.requests.data.filter(item => item.id !== payload)
+        requests: {
+          ...state.requests,
+          data: state.requests.data.map(arr => arr.filter(item => item.id !== payload))
+        }
       }
     case CLEAR_COACH_DATA:
       return initialState

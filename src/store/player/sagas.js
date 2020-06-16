@@ -16,7 +16,7 @@ import {
   createInjurySuccess
 } from './actions';
 import api from '../../services/api';
-import { fromPlayer } from 'store/selectors'
+import { fromPlayer, fromAuth } from 'store/selectors'
 import { showError } from '../error/actions';
 import { resolveRequestSuccess } from '../coach/actions';
 
@@ -129,7 +129,8 @@ export function* getInjuriesSaga({ payload }) {
 export function* createMatchSaga({ payload }) {
   try {
     const player = yield select(fromPlayer.getPlayer)
-    const data = yield call([api, api.post], `/player/${player.id}/matches`, payload)
+    const user = yield select(fromAuth.getUser)
+    const data = yield call([api, api.post], `/player/${player ? player.id : user.id}/matches`, payload)
     if (data.error) {
       yield put(showError(data.error))
     } else {
@@ -143,7 +144,8 @@ export function* createMatchSaga({ payload }) {
 export function* createInjurySaga({ payload }) {
   try {
     const player = yield select(fromPlayer.getPlayer)
-    const data = yield call([api, api.post], `/player/${player.id}/injuries`, payload)
+    const user = yield select(fromAuth.getUser)
+    const data = yield call([api, api.post], `/player/${player ? player.id : user.id}/injuries`, payload)
     if (data.error) {
       yield put(showError(data.error))
     } else {

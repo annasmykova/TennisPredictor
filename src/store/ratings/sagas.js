@@ -1,7 +1,7 @@
 import {
   take, put, call, takeEvery,
 } from 'redux-saga/effects'
-import { GET_RATING, getRatingDataSuccess } from './actions';
+import { GET_RATING, getRatingSuccess } from './actions';
 import api from '../../services/api';
 import { showError } from '../error/actions';
 import { resolveRequestSuccess } from '../coach/actions';
@@ -17,7 +17,7 @@ export function* getRatingSaga({ payload }) {
     if (data.error) {
       yield put(showError(data.error))
     } else {
-      yield put(getRatingDataSuccess(payload.filter, data))
+      yield put(getRatingSuccess(payload.filter, data))
     }
   } catch (e) {
     console.log(e);

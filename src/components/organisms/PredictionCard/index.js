@@ -29,7 +29,7 @@ const PredictionCard = props => {
   const { player, otherPlayer, result } = props;
   const data = result ? [
       { name: 'Win', value: result.win },
-      { name: 'Lose', value: result.lose },
+      { name: 'Loss', value: result.lose },
     ] : []
 
   const COLORS = ['#86C10F', '#CC2427'];
@@ -62,7 +62,7 @@ const PredictionCard = props => {
               </Typography>
               <Avatar photo={player.photo}/>
               {otherPlayer
-               ? <Typography gutterBottom className={+result.win <= +result.lose ? 'loser' : ''}>
+               ? <Typography gutterBottom>
                  {+result.win <= +result.lose ? 'Loser' : 'Winner'}
                </Typography>
                : ''
@@ -92,11 +92,13 @@ const PredictionCard = props => {
             }</Grid>
             <Grid item xs>
               <Typography gutterBottom>
-                {otherPlayer ? otherPlayer.firstName + ' ' + otherPlayer.lastName : 'Other Player'}
+                {otherPlayer ? <NavLink className="link-default" to={`/player/${otherPlayer.id}`}>
+                  {otherPlayer.firstName + ' ' + otherPlayer.lastName}
+                </NavLink> : 'Other Player'}
               </Typography>
               <Avatar photo={otherPlayer ? otherPlayer.photo : null}/>
               {otherPlayer
-               ? <Typography gutterBottom className={+result.win > +result.lose ? 'loser' : ''}>
+               ? <Typography gutterBottom className={'loser'}>
                  {+result.win > +result.lose ? 'Loser' : 'Winner'}
                </Typography>
                : ''

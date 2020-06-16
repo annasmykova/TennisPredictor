@@ -4,20 +4,15 @@ export const initialState = {
     page: 1,
     size: 20,
     sort: 'desc',
-    total: 80,
+    total: 0,
     data: []
   },
   injuries: {
     page: 1,
     size: 20,
     sort: '1',
-    total: 150,
-    data: [[{
-      id: 1,
-      injury: 1,
-      date: new Date(),
-      finishDate: new Date()
-    }]]
+    total: 0,
+    data: []
   },
   prediction: {
     result: null,
@@ -29,6 +24,7 @@ export const getPlayer = (state = initialState) =>
   state.player || initialState.player;
 export const getMatches = (state = initialState) => state.matches || initialState.matches;
 export const getInjuries = (state = initialState) => state.injuries || initialState.injuries;
-export const getPredictionResult = (state = initialState) => state.prediction.result || initialState.prediction.result;
+export const getPredictionResult = (state = initialState) => state.prediction.result ||
+  initialState.prediction.result;
 export const getPredictionOtherPlayer = (state = initialState) => state.prediction.otherPlayer ||
   initialState.prediction.otherPlayer;

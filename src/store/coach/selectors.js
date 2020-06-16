@@ -12,17 +12,7 @@ export const initialState = {
     size: 20,
     sort: 'asc',
     total: null,
-    data: [[{
-      id: 1,
-      position: 1,
-      photo: null,
-      firstName: 'Elina',
-      lastName: 'Svitolina',
-      gender: 1,
-      age: 24,
-      country: 'UKR',
-      hand: 'R',
-    }]]
+    data: []
   },
 }
 

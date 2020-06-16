@@ -19,7 +19,7 @@ const App = ({ user, getUser, error }) => {
   const userToken = cookie.load('token')
   useEffect(() => {
     if (userToken && !user) {
-      getUser(jwt_decode(userToken).id);
+      getUser(jwt_decode(userToken).user_id);
     }
   }, [user])
 

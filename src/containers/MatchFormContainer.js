@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 
 const validate = values => {
+  console.log(values);
   const errors = {}
   if (!values.player2) {
     errors.player2 = 'Required'

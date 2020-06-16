@@ -58,7 +58,7 @@ const validate = values => {
 
 const onSubmit = (data, dispatch) => {
   let { dob } = data
-  if (typeof dob === 'string') {
+  if (dob) {
     dob = new Date(dob).toISOString()
   }
 

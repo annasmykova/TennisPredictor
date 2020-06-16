@@ -54,6 +54,7 @@ const Field = ({
   }
 
   const setSearchItem = item => {
+    console.log(item);
     props.onChange(item.id)
     setAutocompleteText(item.text)
   }
@@ -119,6 +120,7 @@ const Field = ({
             type="file"
             style={{ display: "none" }}
             {...inputProps}
+            defaultValue={undefined}
           />
         </Button>
         {

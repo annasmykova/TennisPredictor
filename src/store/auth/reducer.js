@@ -23,6 +23,10 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: true,
+        data: {
+          ...state.data,
+          photo: ''
+        }
       }
     case EDIT_USER_FAIL:
       return {

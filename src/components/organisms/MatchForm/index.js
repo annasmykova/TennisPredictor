@@ -65,7 +65,7 @@ let MatchForm = props => {
         New Match
       </DialogTitle>
       <DialogContent>
-        <form id="match-form" className="login-form form-default modal-form" onSubmit={handleSubmit}>
+        <form id="match-form" name="match-form" className="login-form form-default modal-form" onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs>
               <Grid container spacing={0} direction="column">
@@ -115,15 +115,17 @@ let MatchForm = props => {
           </Grid>
         </form>
       </DialogContent>
-      <DialogActions>
+      <DialogActions
+        onClick={(e) => {
+          if (e.target.parentNode.className.indexOf('default-btn') !== -1) {
+            setTimeout(closeModal, 3000)
+          }
+        }}>
         <Button
           className={classNames('default-btn')}
           variant="outlined"
           type="submit"
           form="match-form"
-          onClick={() => {
-            setTimeout(closeModal, 3000)
-          }}
         >Add Match</Button>
       </DialogActions>
     </Fragment>

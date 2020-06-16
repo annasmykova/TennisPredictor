@@ -47,16 +47,11 @@ export default (state = initialState, { type, payload }) => {
         }
       }
     case CREATE_INJURY_SUCCESS:
-      const [ firstPageInjury, ...otherInjuryPages] = state.injuries.data
-      const firstPageInjuries = firstPageInjury || []
-      const newFirstPageInjuries = firstPageInjuries.find(item => item.injury === payload.injury)
-        ? firstPageInjuries.map(item => item.injury === payload.injury ? payload : item )
-        : [payload, ...firstPageInjuries]
       return {
         ...state,
         injuries: {
           ...state.injuries,
-          data: [[...newFirstPageInjuries], ...otherInjuryPages]
+          data: [payload]
         }
       }
     case GET_PREDICTION_SUCCESS:

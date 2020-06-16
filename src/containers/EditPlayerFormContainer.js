@@ -60,6 +60,8 @@ const onSubmit = (data, dispatch) => {
       formData.append(key, newData[key]);
     }
   })
+
+  formData.append('userType', 1);
   dispatch(editUser(formData))
 }
 

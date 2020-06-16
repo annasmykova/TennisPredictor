@@ -32,7 +32,7 @@ const MyPlayersPage = props => {
   return (
     <Page heading={<strong className="big-title">My Players</strong>}>
       <div className="home-page">
-        <RatingCard data={props.players} handleRowClick={handlePageChange} handlePageChange={handleRowClick} />
+        <RatingCard data={props.players} handleRowClick={handleRowClick} handlePageChange={handlePageChange} />
       </div>
     </Page>
   )

@@ -75,7 +75,7 @@ const CoachBioDefault = props => {
                 <Grid item xs>
                   <p className="valueText">
                     <span className="label">Coaching</span>
-                    <span className="value">{coach.players ? coach.players === 1 ? 'Player' : 'Players' : '-' }</span>
+                    <span className="value">{coach.players || ''} {coach.players ? coach.players === 1 ? 'Player' : 'Players' : '-' }</span>
                   </p>
                 </Grid>
               </Grid>

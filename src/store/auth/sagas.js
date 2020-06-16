@@ -13,7 +13,7 @@ import {
   signUpSuccess,
   removeAccSuccess,
   getUserSuccess,
-  logoutSuccess, EDIT_USER, editUserSuccess, editUserFail
+  logoutSuccess, EDIT_USER, editUserSuccess, editUserFail, getUser
 } from './actions';
 import { fromAuth } from 'store/selectors'
 import { push } from 'connected-react-router'
@@ -34,26 +34,7 @@ export function* logoutSaga() {
 export function* loginSaga({ payload }) {
   try {
     const data = yield call([api, api.post], `/login`, payload)
-    // const data = {
-    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-    //   userData: {
-    //     id: 123,
-    //     firstName: 'Anna',
-    //     lastName: 'Smykova',
-    //     hand: 'L',
-    //     gender: 1,
-    //     position: 2,
-    //     dob: new Date(),
-    //     userType: 1,
-    //     country: 'UKR',
-    //     photo: null,
-    //     coach: {
-    //       id: 2,
-    //       text: 'Daniel Pilipets'
-    //     },
-    //     profyStatus: 0
-    //   }
-    // }
+
     if (data.userWithoutCoach) {
       yield put(showError(data))
       yield put(push('/'))
@@ -121,40 +102,6 @@ export function* changePassSaga({ payload }) {
 export function* getUserSaga({ payload }) {
   try {
     const data = yield call([api, api.get], `/user/${payload}`)
-    // const data = {
-    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-    //   userData: {
-    //     id: 123,
-    //     firstName: 'Anna',
-    //     lastName: 'Smykova',
-    //     userType: 0,
-    //     photo: null,
-    //     country: 'UA',
-    //     gender: 0,
-    //     dob: new Date(),
-    //     players: 3
-    //   }
-    // }
-    // const data = {
-    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-    //   userData:  {
-    //     id: 123,
-    //     firstName: 'Anna',
-    //     lastName: 'Smykova',
-    //     hand: 'L',
-    //     gender: 1,
-    //     position: 2,
-    //     dob: new Date(),
-    //     userType: 1,
-    //     country: 'UKR',
-    //     photo: null,
-    //     coach: {
-    //       id: 2,
-    //       text: 'Daniel Pilipets'
-    //     },
-    //     profyStatus: 0
-    //   }
-    // }
     if (data.error) {
       yield put(showError(data.error))
     } else {
@@ -168,31 +115,12 @@ export function* getUserSaga({ payload }) {
 export function* editUserSaga({ payload }) {
   try {
     const user = yield select(fromAuth.getUser)
-    const data = yield call([api, api.post], `/user/${user.id}`, payload, {'Content-Type': 'multipart/form-data'})
-    // const data = {
-    //   token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJuYW1lIjoiSm9obiBEb2UiLCJhZG1pbiI6dHJ1ZSwianRpIjoiYmZiZDMzZTAtM2YzMC00MTFjLTliODAtM2NmZjUyY2FhNzA1IiwiaWF0IjoxNTkxMTMwNDY3LCJleHAiOjE1OTExMzQwODd9.NufY7WfVGWYVFeME74gbC_pUD0Z83ELcZ86bUsQJ9h8',
-    //   userData:  {
-    //     id: 123,
-    //     firstName: 'Anna',
-    //     lastName: 'Smykova',
-    //     hand: 'L',
-    //     gender: 1,
-    //     position: 2,
-    //     dob: new Date(),
-    //     userType: 1,
-    //     country: 'UKR',
-    //     photo: null,
-    //     coach: {
-    //       id: 2,
-    //       text: 'Daniel Pilipets'
-    //     },
-    //     profyStatus: 0
-    //   }
-    // }
+    const data = yield call([api, api.post], `/user/${user.userId}`, payload, {'Content-Type': 'multipart/form-data'})
     if (data.error) {
       yield put(showError(data.error))
     } else {
-      yield put(editUserSuccess(data))
+      cookie.save('token', data.token, { path: '/' })
+      yield put(editUserSuccess(data.userData))
     }
   } catch (e) {
     yield put(editUserFail())

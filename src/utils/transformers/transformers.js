@@ -4,14 +4,17 @@ import { countryList, HandEnum, InjuryEnum, SexEnum, TourneyLevels } from '../co
 import ResolveRequestWrapper from '../../components/molecules/ResolveRequestWrapper';
 
 export const getRatingTableData = data => {
-  return data.map(row => ({
-    ...row,
-    photo: <Avatar photo={row.photo} />,
-    gender: SexEnum[row.gender],
-    hand: HandEnum[row.hand],
-    country: countryList[row.country].name,
-    name: `${row.firstName} ${row.lastName}`
-  }))
+  return data.map((row, i) => {
+    return {
+      ...row,
+      photo: <Avatar photo={row.photo} />,
+      gender: SexEnum[row.gender],
+      hand: HandEnum[row.hand],
+      country: countryList[row.country] ? countryList[row.country].name : '-',
+      name: `${row.firstName} ${row.lastName}`,
+      position: row.position || i + 1
+    }
+  })
 }
 
 export const getRequestTableData = data => {
