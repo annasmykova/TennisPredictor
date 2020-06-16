@@ -3,7 +3,7 @@
 </h1>
 
 <br />
-Prediction tennis matches results for two players.
+Prediction of tennis matches results for two players.
 
 ## License
 
