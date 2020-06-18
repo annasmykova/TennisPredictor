@@ -9,6 +9,7 @@ export const getRatingTableData = data => {
       ...row,
       photo: <Avatar photo={row.photo} />,
       gender: SexEnum[row.gender],
+      age: new Date().getFullYear() - new Date(row.dob).getFullYear(),
       hand: HandEnum[row.hand],
       country: countryList[row.country] ? countryList[row.country].name : '-',
       name: `${row.firstName} ${row.lastName}`,
