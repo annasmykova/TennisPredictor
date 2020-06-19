@@ -4,14 +4,14 @@ export const initialState = {
     page: 1,
     size: 20,
     sort: 'asc',
-    total: 80,
+    total: 0,
     data: []
   },
   players: {
     page: 1,
     size: 20,
     sort: 'asc',
-    total: null,
+    total: 0,
     data: []
   },
 }

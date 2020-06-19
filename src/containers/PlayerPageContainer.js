@@ -13,7 +13,8 @@ import { compose } from 'redux';
 
 let PlayerPageContainer = props => {
   const { player, match, user, getPlayer, clearPlayerData } = props;
-  const isEditable = user && (+user.id === +match.params.playerId ||
+  const isPlayer = user && +user.id === +match.params.playerId;
+  const isEditable = user && (isPlayer ||
     player && player.coach && +player.coach.id === +user.id)
 
   const handleMatchesPageChange = key => (event, page) => {
@@ -47,7 +48,7 @@ let PlayerPageContainer = props => {
         isEditable={isEditable}
         handlePageChange={handleInjuriesPageChange('injuries')}
       />,
-      <PredictionCard player={isEditable ? user : player} />
+      <PredictionCard player={isPlayer ? user : player} />
     ]
     : [
       <PlayerBio

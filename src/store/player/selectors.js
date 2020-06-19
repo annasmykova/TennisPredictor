@@ -28,3 +28,9 @@ export const getPredictionResult = (state = initialState) => state.prediction.re
   initialState.prediction.result;
 export const getPredictionOtherPlayer = (state = initialState) => state.prediction.otherPlayer ||
   initialState.prediction.otherPlayer;
+export const getPlayerAsMatchPlayer = (state = initialState) => state.player
+                                                                ? ({
+    id: state.player.id,
+    text: state.player.firstName + ' ' + state.player.lastName
+  })
+                                                                : null

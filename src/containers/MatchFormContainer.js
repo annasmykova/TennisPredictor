@@ -1,6 +1,6 @@
 import React from 'react'
 import { createMatch } from 'store/actions'
-import { fromAuth } from 'store/selectors'
+import { fromAuth, fromPlayer } from 'store/selectors'
 import { reduxForm } from 'redux-form'
 
 import { MatchForm } from 'components'
@@ -59,6 +59,6 @@ MatchFormContainer = reduxForm({
 
 export default connect(state => ({
   initialValues: {
-    player1: fromAuth.getUserAsMatchPlayer(state)
+    player1: fromPlayer.getPlayerAsMatchPlayer(state) || fromAuth.getUserAsMatchPlayer(state)
   }
 }))(MatchFormContainer)
