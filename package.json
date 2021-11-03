@@ -143,6 +143,6 @@
     "styled-components": "^4.3.2",
     "styled-theme": "^0.3.3",
     "styled-tools": "^1.7.1",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   }
 }
