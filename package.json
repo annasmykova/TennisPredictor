@@ -121,7 +121,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
     "history": "^4.9.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "normalizr": "3.4.1",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.2",
